@@ -1,0 +1,9 @@
+bin/
+node_modules/
+obj/
+Properties/
+.vs/
+
+*.js
+*.css
+*.js.map

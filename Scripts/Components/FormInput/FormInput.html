@@ -1,0 +1,16 @@
+﻿
+<form name="userForm">
+    <md-input-container>
+        <label>Термин</label>
+        <input name="lastName" ng-model="ctrl.lastName" required md-maxlength="10" minlength="4">
+        <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
+            <div ng-message="required">This is required!</div>
+            <div ng-message="md-maxlength">That's too long!</div>
+            <div ng-message="minlength">That's too short!</div>
+        </div>
+    </md-input-container>
+
+    <md-datepicker md-open-on-focus md-placeholder ng-model="ctrl.birthday"></md-datepicker>
+
+    <md-button class="md-raised">Raised and Accent Button</md-button>
+</form>

@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "termin",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@types/angularjs": "1.5.14-alpha",
+    "@types/jquery": "3.3.22"
+  }
+}
