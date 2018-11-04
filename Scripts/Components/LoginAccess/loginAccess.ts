@@ -8,7 +8,7 @@
       "AccountService"
     ];
 
-    constructor(public $scope, private account: Termin.Services.AccountService) { }
+    constructor(public $scope: any, private account: Termin.Services.AccountService) { }
 
     $onInit?(): void {
 

@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>Termin</title>
@@ -16,20 +17,52 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
 
+    <script src="./node_modules/moment/min/moment.min.js"></script>
+    <script src="./node_modules/lodash/lodash.min.js"></script>
+
+    <script src="./Scripts/Components/Termin/Termin.js"></script>
     <script src="./Scripts/Services/AccountService.js"></script>
+    <script src="./Scripts/Services/StorageService.js"></script>
     <script src="./Scripts/Components/FormInput/FormInput.js"></script>
     <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
+    <script src="./Scripts/Components/Calendar/Calendar.js"></script>
     <script src="./Scripts/app.js"></script>
 
 </head>
-<body ng-app="termin">
 
-    <md-tabs>
-        <md-tab label="Авторизация"><login-access-component /></md-tab>
-        <md-tab label="Календарь"></md-tab>
-        <md-tab label="Добавление"><form-input-component /></md-tab>
-        <md-tab label="Редактирование"></md-tab>
-    </md-tabs>
+<body ng-app="termin" ng-controller="myCtrl">
+    <div layout="column" layout-fill>
+        <md-toolbar>
+
+            <div class="md-toolbar-tools">
+                <h2 md-truncate flex>Система - Термин</h2>
+
+                <md-button>
+                    Иван Иванов - Выход
+                </md-button>
+            </div>
+
+        </md-toolbar>
+        <md-content>
+
+            <md-tabs md-selected="indexTab" class="md-dynamic-height">
+                <md-tab label="Авторизация">
+                    <login-access-component />
+                </md-tab>
+                <md-tab label="Календарь">
+                    <calendar-component to-edit="myCtrl.toEdit" />
+                </md-tab>
+                <md-tab label="Добавление">
+                    <form-input-component to-edit="myCtrl.toEdit" />
+                </md-tab>
+                <md-tab label="Пользователи"></md-tab>
+            </md-tabs>
+
+
+        </md-content>
+    </div>
+
+
 
 </body>
 

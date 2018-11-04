@@ -2,9 +2,21 @@
   "version": "1.0.0",
   "name": "termin",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "moment": "latest",
+    "lodash": "latest"
+  },
   "devDependencies": {
-    "@types/angularjs": "1.5.14-alpha",
-    "@types/jquery": "3.3.22"
+    "gulp": "latest",
+    "typescript": "latest",
+    "less": "latest",
+    "gulp-typescript": "latest",
+    "gulp-less": "latest",
+    "less-plugin-autoprefix": "latest",
+    "gulp-concat": "latest",
+    "gulp-copy": "latest",
+    "del": "latest",
+    "@types/jquery": "3.3.22",
+    "@types/lodash": "latest"
   }
 }
