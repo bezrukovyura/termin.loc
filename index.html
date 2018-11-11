@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="img/icon.png" />
     <title>Termin</title>
     <link rel="stylesheet" href="./Styles/app.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,14 +22,23 @@
     <script src="./node_modules/lodash/lodash.min.js"></script>
 
     <script src="./Scripts/Components/Termin/Termin.js"></script>
+
     <script src="./Scripts/Services/AccountService.js"></script>
     <script src="./Scripts/Services/StorageService.js"></script>
+    <script src="./Scripts/Services/ConverterService.js"></script>
+
     <script src="./Scripts/Components/FormInput/FormInput.js"></script>
     <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
     <script src="./Scripts/Components/Calendar/Calendar.js"></script>
     <script src="./Scripts/app.js"></script>
 
 </head>
+
+<style>
+    .pointer {
+        cursor: pointer;
+    }
+</style>
 
 <body ng-app="termin" ng-controller="myCtrl">
     <div layout="column" layout-fill>
@@ -44,20 +54,20 @@
 
         </md-toolbar>
         <md-content>
+            <md-progress-linear ng-show="myCtrl.showProgressBar" md-mode="query"></md-progress-linear>
 
             <md-tabs md-selected="indexTab" class="md-dynamic-height">
                 <md-tab label="Авторизация">
                     <login-access-component />
                 </md-tab>
                 <md-tab label="Календарь">
-                    <calendar-component to-edit="myCtrl.toEdit" />
+                    <calendar-component to-edit="myCtrl.toEdit" index-tab="indexTab" show-progress-bar="myCtrl.showProgressBar" />
                 </md-tab>
                 <md-tab label="Добавление">
-                    <form-input-component to-edit="myCtrl.toEdit" />
+                    <form-input-component to-edit="myCtrl.toEdit" index-tab="indexTab" show-progress-bar="myCtrl.showProgressBar" />
                 </md-tab>
                 <md-tab label="Пользователи"></md-tab>
             </md-tabs>
-
 
         </md-content>
     </div>

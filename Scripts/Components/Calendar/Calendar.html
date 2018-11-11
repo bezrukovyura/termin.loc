@@ -1,24 +1,66 @@
 <style>
-calendar-component .item {
-    margin: 0 0 4px 0;
-    border-bottom: 1px dashed dimgrey;
-    overflow: hidden;
-}
+    calendar-component .item {
+        margin: 0 0 4px 0;
+        border-bottom: 1px dashed dimgrey;
+        overflow: hidden;
+    }
 
-calendar-component .item div {
-    float: left;
-}
-calendar-component .item .time {
-    margin: 0 15px 0 0;
-}
+    calendar-component .item div {
+        float: left;
+    }
+
+    calendar-component .item .time {
+        margin: 0 15px 0 0;
+    }
+
+    calendar-component .half {
+        width: calc(50% - 60px);
+        margin: 0 30px;
+        float: left;
+    }
+
+    calendar-component .nowDate {
+        width: 100%;
+        overflow: hidden;
+        margin: 0 0 14px 0;
+        font-style: italic;
+        color: gray;
+    }
+
+    calendar-component .item:hover {
+        border-bottom: 1px solid #cccccc;
+    }
+
+    calendar-component .nowDate>div {
+        border-bottom: 1px solid #d0d0d0;
+        float: left;
+    }
 </style>
 
-<div class="calendar bhp-wrap">
-    <div class="item" ng-repeat="item in ctrl.pullUnits">
-        <div ng-click="ctrl.onEdit(item)">
-            <div class="time">{{item.hour}}:{{item.minute}}</div>
-            <div class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
 
+<div class="calendar bhp-wrap">
+
+    <div class="nowDate">
+        <div>
+            {{ctrl.allStrings.date}}
+        </div>
+
+    </div>
+
+    <div class="halfDay half">
+        <div class="item first" ng-repeat="item in ctrl.allStrings.first">
+            <div ng-click="ctrl.onEdit(item)" class="pointer">
+                <div class="time">{{item.hour}}:{{item.minute}}</div>
+                <div class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="halfDay half">
+        <div class="item second" ng-repeat="item in ctrl.allStrings.second">
+            <div ng-click="ctrl.onEdit(item)" class="pointer">
+                <div class="time">{{item.hour}}:{{item.minute}}</div>
+                <div class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+            </div>
         </div>
     </div>
 </div>

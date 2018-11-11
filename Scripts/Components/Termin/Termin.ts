@@ -9,11 +9,13 @@ namespace Termin.Components {
         public toEdit: Unit;
         public indexTab: number = 2;
 
+        public showProgressBar: boolean = false;
+
         $onInit?(): void {
 
 
             this.$scope.$watch("myCtrl.toEdit", (valNew: Unit) => {
-                debugger
+
                 if (valNew && valNew !== null) {
                     this.storageService.UnitToEdit = valNew;
                     this.$scope.indexTab = 2;

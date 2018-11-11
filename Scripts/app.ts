@@ -7,6 +7,7 @@ declare var moment: any;
 angular.module('termin', ['ngMaterial', 'ngMessages'])
   .service("AccountService", Termin.Services.AccountService)
   .service("StorageService", Termin.Services.StorageService)
+  .service("ConverterService", Termin.Services.ConverterService)
   .component("formInputComponent", Termin.Components.FormInputComponent)
   .component("loginAccessComponent", Termin.Components.LoginAccessComponent)
   .component("calendarComponent", Termin.Components.CalendarComponent)

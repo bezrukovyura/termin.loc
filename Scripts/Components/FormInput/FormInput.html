@@ -28,6 +28,15 @@
     .colorRed>div {
         background: #ff070730 !important;
     }
+
+    .toastBad .md-toast-content {
+        background: #de2d2d !important;
+    }
+
+    .toastOk .md-toast-content {
+        background: green !important;
+    }
+
 </style>
 
 
@@ -38,11 +47,6 @@
         <div>
             <label>Дата "Термина"</label>
             <md-datepicker md-open-on-focus md-placeholder ng-model="ctrl.unit.date"></md-datepicker>
-
-            <!--md-input-container style="margin: 0px;vertical-align: top;">
-                <label>00:00</label>
-                <input type="time" ng-model="ctrl.unit.dateTime" min="6:00" max="19:30" required>
-            </md-input-container-->
 
             <select ng-model="ctrl.unit.hour">
                     <option value="06">06</option> 
@@ -120,13 +124,13 @@
 
     </div>
 
-    <div ng-if="!ctrl.isEdit">
+    <div ng-if="!ctrl.unit.id">
         <md-button ng-click="ctrl.save()" class="md-raised colorGreen">Добавить</md-button>
         <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">Очистить</md-button>
     </div>
-    <div ng-if="ctrl.isEdit">
+    <div ng-if="ctrl.unit.id">
         <md-button ng-click="ctrl.editSave()" class="md-raised colorGreen">Внести изменения</md-button>
         <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">Отменить</md-button>
-        <md-button ng-click="ctrl.clear()" class="md-raised colorRed">Удалить</md-button>
+        <md-button ng-click="ctrl.delete()" class="md-raised colorRed">Удалить</md-button>
     </div>
 </form>

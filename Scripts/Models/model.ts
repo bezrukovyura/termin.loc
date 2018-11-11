@@ -14,5 +14,7 @@ namespace Termin {
         public zuweiser?: string;
         public comments?: string;
         public id?: number;
+        public userRegister?: string;
+        public visitDateNumber?: string;
     }
 }
