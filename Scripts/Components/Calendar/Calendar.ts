@@ -8,40 +8,34 @@
 
   class CalendarController implements ng.IController {
 
-    static $inject: string[] = ["$scope", "$timeout", "StorageService"];
+    static $inject: string[] = ["$scope", "$timeout", "StorageService", "ConverterService", "TabService"];
 
-    constructor(public $scope: ng.IScope, private $timeout: ng.ITimeoutService, private storageService: Services.StorageService) { }
+    constructor(
+      public $scope: ng.IScope, 
+      private $timeout: ng.ITimeoutService, 
+      private storageService: Services.StorageService, 
+      private converter: Services.ConverterService,
+      private tabs: Services.TabService
+      ) { }
+    
 
     $onInit?(): void {
 
-      this.$scope.$watch("ctrl.indexTab", (valNew: Unit) => {
-        if (valNew === 1)
+      this.$scope.$watch("ctrl.tabs.active", (x: number) => {
+        debugger
+        if (x == 0)
           this.update();
       });
 
-    }
-
-    private apply(fn: () => void) {
-      this.$scope.safeApply = (fn: () => void) => {
-        let phase = this.$scope.$root.$$phase;
-        if (phase == "$apply" || phase == "$digest")
-          fn && (typeof (fn) === "function") && fn();
-        else
-          this.$scope.$apply(fn);
-      };
     }
 
     private update = () => {
       this.init("2018-11-11");
     }
 
-    public indexTab: number;
 
    /** все термины за день, разделенные на первую и вторую половину */
      private allStrings: AllStrings = { first: [], second: [] };
-
-    /** Терин для передачи во внешний scope */
-    private toEdit: Unit;
 
     private showProgressBar: boolean;
 
@@ -50,7 +44,7 @@
       let strings: Unit[] = [];
       for (let i = fromHour; i < toHour; i++) {
         for (let j = 0; j < 60; j += interval) {
-          strings.push({ date: date, hour: this.convertTime(i), minute: this.convertTime(j) });
+          strings.push({ date: date, hour: this.converter.time(i), minute: this.converter.time(j) });
         }
       }
       return strings;
@@ -96,33 +90,18 @@
 
     /** Термин, который будем редактировать */
     public onEdit(unit: Unit) {
-      debugger
-      this.toEdit = unit;
+      this.storageService.UnitToEdit = unit;
+      this.tabs.setActive(1);
     }
 
-    /** Сегодняшняя дата в формате гггг-мм-дд  */
-    private getDateNow() {
-      let d = new Date();
-      return (new Date()).getFullYear() + "-" + (d.getMonth() + 1) + "-" + (d.getUTCDate() + 1);
-    }
 
-    /** перевод числового времени в строковый */
-    private convertTime(x: number): string {
-      if (x === 0)
-        return "00";
-      if (x < 10)
-        return "0" + x;
-      else
-        return x + "";
-    }
 
 
   }
 
   export const CalendarComponent: angular.IComponentOptions = {
     bindings: {
-      toEdit: "=",
-      indexTab: "=",
+      tab: "=",
       showProgressBar: "="
     },
     controller: CalendarController,

@@ -5,13 +5,18 @@
     static $inject: string[] = [
       "$scope",
       "AccountService",
-      "$mdToast"
+      "$mdToast",
+      "TabService"
     ];
 
-    constructor(public $scope: ng.IScope, private AccountService: Termin.Services.AccountService, private $mdToast: any) { }
+    constructor(
+      public $scope: ng.IScope, 
+      private AccountService: Services.AccountService, 
+      private $mdToast: any,
+      private tabs: Services.TabService
+      ) { }
 
     private showProgressBar: boolean;
-    private indexTab: number;
     
     public userRole: {level: number, name: string};
 
@@ -28,7 +33,7 @@
         debugger
         if (x && x.role && x.role > -1) {
           this.toast(x.name + ", рады Вас видеть!", "");
-          this.indexTab = 1;
+          this.tabs.setActive(1);
           this.userRole.name = x.name ;
         }
         else {
@@ -64,7 +69,6 @@
   export const LoginAccessComponent: angular.IComponentOptions = {
     bindings: {
       showProgressBar: "=",
-      indexTab: "=",
       userRole: "="
     },
     controller: LoginAccessController,

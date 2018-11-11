@@ -35,6 +35,9 @@
         );
     };
 
+    exit(){
+      this.removeKeyStorage();
+    }
     setKeyStorage(user: User) {
       debugger
       localStorage.setItem("secureKey", md5(user.password))

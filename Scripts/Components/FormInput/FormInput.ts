@@ -9,6 +9,7 @@
     $onInit?(): void {
 
       this.$scope.$watch("ctrl.storageService.UnitToEdit", (valNew: Unit) => {
+        debugger
         if (valNew) {
           this.unit = this.storageService.UnitToEdit;
         }
@@ -17,12 +18,11 @@
     }
 
     public unit: Unit;
-    public toEdit: Unit;
     private showProgressBar: boolean;
-    private indexTab: number;
+    private tab: {i: number};
 
     private backCalendar(){
-      this.indexTab = 1;
+      this.tab.i = 1;
     }
 
     public clear() {
@@ -97,9 +97,8 @@
 
   export const FormInputComponent: angular.IComponentOptions = {
     bindings: {
-      toEdit: "=",
       showProgressBar: "=",
-      indexTab: "="
+      tab: "="
     },
     controller: FormInputController,
     controllerAs: "ctrl",
