@@ -10,21 +10,12 @@
   <meta charset="utf-8" />
   <link rel="icon" type="image/png" href="img/icon.png" />
   <title>Termin</title>
-  <link rel="stylesheet" href="./Styles/app.css" type="text/css" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <link rel="stylesheet" href="./Scripts/vendors.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
-
-  <script src="./node_modules/moment/min/moment.min.js"></script>
-  <script src="./node_modules/lodash/lodash.min.js"></script>
-  <script src="./node_modules/js-md5/build/md5.min.js"></script>
+  <script src="./Scripts/vendors.js"></script>
 
   <script src="./Scripts/Components/Termin/Termin.js"></script>
 
@@ -60,6 +51,14 @@
   md-progress-linear .md-bar {
     background-color: red !important;
 }
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative; 
+  margin: 0; 
+}
+
 </style>
 
 <body ng-app="termin" ng-controller="myCtrl">

@@ -1,5 +1,6 @@
 bin/
 node_modules/
+deploy/**
 obj/
 Properties/
 .vs/
