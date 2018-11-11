@@ -1,65 +1,52 @@
 ﻿namespace Termin.Services {
 
-  interface IAccountData {
-    login: string;
-    password: string;
-  }
+  declare var md5: (s: string) => string;
 
   export class AccountService {
 
-    static $inject: string[] = ["$http", "$q"];
+    private static baseUrl = "/php/users.php";
 
-    private static baseUrl = "/Account/";
-    private static storagePath = "login";
+    static $inject: string[] = ["$http", "$q"];
 
     constructor(private $http: angular.IHttpService, private $q: angular.IQService) { }
 
+    public user: User;
 
-    public HasAccess(): ng.IPromise<any> {
-      return this.login("Иван", "123").then(
-        response => {
-          if (response)
-            console.log("logIn ok");
-          else
-            console.log("logIn bad");
+    /** 0 - user, 1 - admin, -1 - error */
+    getUser(user: User): ng.IPromise<User> {
+      return this.$http.post<User[]>(AccountService.baseUrl, { method: "getRole", user: user })
+        .then((response) => {
+          debugger
+
+          if(response.data.length !== 1)
+            return undefined;
+
+          if (response.data[0].role == 1 || response.data[0].role == 0) {
+            this.user = response.data[0];
+            this.user.role = +this.user.role;
+            return this.user;
+          }
+          return undefined;
         },
-        r => {
-          return this.$q.reject(r.data);
-        });
+          (r) => {
+            debugger
+            return this.$q.reject(undefined);
+          }
+        );
+    };
+
+    setKeyStorage(user: User) {
+      debugger
+      localStorage.setItem("secureKey", md5(user.password))
     }
 
-    private login(login: string, password: string): ng.IPromise<boolean> {
-      let accountData: IAccountData = { login: login, password: password};
-      return this.$http.post<boolean>(AccountService.baseUrl + "userPermissions", accountData)
-        .then((response) => {
-          return response.data;
-        },
-        (r) => {
-          return this.$q.reject(r.data); });
-    };
+    getKeyStorage(user: User) {
+      debugger
+      localStorage.getItem("secureKey")
+    }
 
-    private savePass(accountData: IAccountData) {
-      localStorage.setItem(AccountService.storagePath, JSON.stringify({ login: accountData.login, password: accountData.password }))
-    };
-
-    private loginOut() {
-      localStorage.setItem(AccountService.storagePath, "");
-    };
-
-    private getAccess() {
-      try {
-        let json: IAccountData = JSON.parse(localStorage.getItem(AccountService.storagePath))
-        if (json.login.length > 0 && json.password.length > 0) {
-          this.login(json.login, json.password).then(x => {
-            debugger
-          }).catch(x => {
-            debugger
-          });
-        }
-      }
-      catch{
-
-      }
+    removeKeyStorage() {
+      localStorage.setItem("secureKey", "")
     }
 
   }

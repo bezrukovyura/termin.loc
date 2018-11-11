@@ -1,4 +1,23 @@
-﻿Имя <input />
-Пароль <input />
+﻿<style>
+    login-access-component {
+        overflow: hidden;
+        display: block;
+        margin: 100px auto 0 auto;
+        max-width: 535px;
+    }
+</style>
 
-<button>Выйти</button>
+<form>
+    <md-input-container>
+        <label>E-mail</label>
+        <input ng-model="ctrl.email" type="email" required>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Пароль</label>
+        <input ng-model="ctrl.password" required md-minlength="6" type="password">
+    </md-input-container>
+
+    <md-button ng-click="ctrl.enter()" class="md-raised">Вход</md-button>
+
+</form>

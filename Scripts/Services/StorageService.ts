@@ -5,8 +5,7 @@ namespace Termin.Services {
 
     static $inject: string[] = ["$http", "$q"];
 
-    private static baseUrlGetUnit = "/php/rest.php";
-    private static baseUrlSetUnit = "/php/rest.php";
+    private static baseUrl = "/php/terms.php";
     private static storagePath = "units";
 
     constructor(private $http: angular.IHttpService, private $q: angular.IQService) { }
@@ -14,7 +13,7 @@ namespace Termin.Services {
     UnitToEdit: Unit;
 
     get(date: string): ng.IPromise<Unit[]> {
-      return this.$http.post<Unit[]>(StorageService.baseUrlGetUnit, {method: "getterms", date: date})
+      return this.$http.post<Unit[]>(StorageService.baseUrl, {method: "getterms", date: date})
         .then((response) => {
           return response.data;
         },
@@ -26,7 +25,7 @@ namespace Termin.Services {
 
 
     save(unit: Unit): ng.IPromise<boolean> {
-      return this.$http.post<string>(StorageService.baseUrlSetUnit, { method: "setterms", jsonArray: unit})
+      return this.$http.post<string>(StorageService.baseUrl, { method: "setterms", jsonArray: unit})
         .then((response) => {
           return response.data == "ok" ? true : false;
         },
@@ -37,7 +36,7 @@ namespace Termin.Services {
     };
 
     update(unit: Unit): ng.IPromise<boolean> {
-      return this.$http.post<string>(StorageService.baseUrlSetUnit, { method: "updateterms", jsonArray: unit})
+      return this.$http.post<string>(StorageService.baseUrl, { method: "updateterms", jsonArray: unit})
         .then((response) => {
           return response.data == "ok" ? true : false;
         },
@@ -48,7 +47,7 @@ namespace Termin.Services {
     };
 
     delete(unit: Unit){
-      return this.$http.post<string>(StorageService.baseUrlSetUnit, { method: "deleteterms", jsonArray: unit})
+      return this.$http.post<string>(StorageService.baseUrl, { method: "deleteterms", jsonArray: unit})
         .then((response) => {
           return response.data == "ok" ? true : false;
         },

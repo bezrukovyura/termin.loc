@@ -46,7 +46,6 @@
     }
 
     public save() {
-      debugger
       this.showProgressBar = true;
       this.unit.date = this.ConverterService.date(<any>this.unit.date);
       this.storageService.save(this.unit).then(x => {
@@ -64,7 +63,6 @@
     }
 
     public delete() {
-      debugger
       this.showProgressBar = true;
       this.storageService.delete(this.unit).then(x => {
         if (x) {

@@ -96,6 +96,7 @@
 
     /** Термин, который будем редактировать */
     public onEdit(unit: Unit) {
+      debugger
       this.toEdit = unit;
     }
 

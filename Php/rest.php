@@ -1,98 +1,70 @@
 <?php
-  header('Access-Control-Allow-Origin: *'); 
 
-  require_once "RestServer.php";
-  require_once "database.php";
+  class RestServer
+	{
+		public $serviceClass;
+	
+		public function __construct($serviceClass)
+		{
+			$this->serviceClass = $serviceClass;
+		}
+	
+		public function handle()
+		{
+			
+			$ngParams = json_decode(file_get_contents('php://input'),true); // angular post
 
-  $rest = new RestServer(TermsService);
-  $rest->handle();
+			if (array_key_exists("method", array_change_key_case($ngParams, CASE_LOWER)))
+			{
+				$rArray = array_change_key_case($ngParams, CASE_LOWER);
+				$method = $rArray["method"];
+	
+				if (method_exists($this->serviceClass, $method))
+				{
+					$ref = new ReflectionMethod($this->serviceClass, $method);
+					$params = $ref->getParameters();
+					$pCount = count($params);
+					$pArray = array();
+					$paramStr = "";
+					
+					$i = 0;
+					
+					foreach ($params as $param)
+					{
+						$pArray[strtolower($param->getName())] = null;
+						$paramStr .= $param->getName();
+						if ($i != $pCount-1) 
+						{
+							$paramStr .= ", ";
+						}
+						
+						$i++;
+					}
 
-  class TermsService
-  {
-     public static function getterms($date)
-     {
-      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
-      $sql = "select * from termins WHERE `date`='$date'";
-      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
-
-      $emparray = array();
-      while($row =mysqli_fetch_assoc($result))
-      {
-          $emparray[] = $row;
-      }
-      return json_encode($emparray);
-      
-      mysqli_close($connection);
-     }
-
-     public static function setterms($jsonArray)
-     {
-      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
-
-      $date = $jsonArray["date"];
-      $hour = $jsonArray["hour"];
-      $minute = $jsonArray["minute"];
-      $fam = $jsonArray["fam"];
-      $name = $jsonArray["name"];
-      $birthday = $jsonArray["birthday"];
-      $phone1 = $jsonArray["phone1"];
-      $phone2 = $jsonArray["phone2"];
-      $region = $jsonArray["region"];
-      $insurance = $jsonArray["insurance"];
-      $zuweiser = $jsonArray["zuweiser"];
-      $comments = $jsonArray["comments"];
-      $userRegister = $jsonArray["userRegister"];
-      $visitDateNumber = $jsonArray["visitDateNumber"];
-
-      $sql = "INSERT INTO termins (`date`, hour, minute, fam, `name`, birthday, phone1, phone2, region, insurance, zuweiser, comments, userRegister, visitDateNumber) VALUES ('$date', '$hour', '$minute', '$fam', '$name', '$birthday', '$phone1', '$phone2', '$region', '$insurance', '$zuweiser', '$comments', '$userRegister', '$visitDateNumber')";
-
-      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
-
-      return "ok";
-      
-      mysqli_close($connection);
-     }
-
-     public static function updateterms($jsonArray)
-     {
-      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
-
-      $date = $jsonArray["date"];
-      $id = $jsonArray["id"];
-      $hour = $jsonArray["hour"];
-      $minute = $jsonArray["minute"];
-      $fam = $jsonArray["fam"];
-      $name = $jsonArray["name"];
-      $birthday = $jsonArray["birthday"];
-      $phone1 = $jsonArray["phone1"];
-      $phone2 = $jsonArray["phone2"];
-      $region = $jsonArray["region"];
-      $insurance = $jsonArray["insurance"];
-      $zuweiser = $jsonArray["zuweiser"];
-      $comments = $jsonArray["comments"];
-      $userRegister = $jsonArray["userRegister"];
-      $visitDateNumber = $jsonArray["visitDateNumber"];
-
-//UPDATE  `termin`.`termins` SET  `hour` =  '08',`fam` =  'Piter123',`name` =  'Pan12334' WHERE  `termins`.`id` =1;
-
-      $sql = "UPDATE termin.termins SET `date`='$date', hour='$hour', minute='$minute', fam='$fam', `name`='$name', birthday='$birthday', phone1='$phone1', phone2='$phone2', region='$region', insurance='$insurance', zuweiser='$zuweiser', comments='$comments', userRegister='$userRegister', visitDateNumber='$visitDateNumber' WHERE termins.id='$id'";
-
-      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
-
-      return "ok";
-      
-      mysqli_close($connection);
-     }
-
-      public static function deleteterms($jsonArray) {
-        $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
-        $id = $jsonArray["id"];
-        $sql = "DELETE FROM termins WHERE id='$id'";
-        $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
-        return "ok";
-        mysqli_close($connection);
-      }
-     
-  }
+					foreach ($pArray as $key => $val)
+					{
+						$pArray[strtolower($key)] = $rArray[strtolower($key)];
+					}
+	
+					if (count($pArray) == $pCount && !in_array(null, $pArray))
+					{
+						echo call_user_func_array(array($this->serviceClass, $method), $pArray);
+					}
+					else
+					{
+						echo json_encode(array('error' => "Required parameter(s) for ". $method .": ". $paramStr));
+					}
+				}
+				else
+				{
+					echo json_encode(array('error' => "The method " . $method . " does not exist."));
+				}
+			}
+			else
+			{
+				echo json_encode(array('error' => 'No method was requested.'));
+			}
+		}
+	}
 
 ?>

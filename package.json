@@ -3,8 +3,9 @@
   "name": "termin",
   "private": true,
   "dependencies": {
-    "moment": "latest",
-    "lodash": "latest"
+    "js-md5": "^0.7.3",
+    "lodash": "latest",
+    "moment": "latest"
   },
   "devDependencies": {
     "gulp": "latest",

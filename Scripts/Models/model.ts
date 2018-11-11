@@ -1,6 +1,6 @@
 namespace Termin {
 
-    export class Unit{
+    export class Unit {
         public date?: string;
         public hour?: string;
         public minute?: string;
@@ -16,5 +16,14 @@ namespace Termin {
         public id?: number;
         public userRegister?: string;
         public visitDateNumber?: string;
+    }
+
+    export class User {
+        public id?: number;
+        public name?: string;
+        public email?: string;
+        public role?: number;
+        public password?: string;
+        public key?: string;
     }
 }
