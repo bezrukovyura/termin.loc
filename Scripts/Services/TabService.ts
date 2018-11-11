@@ -6,7 +6,6 @@ namespace Termin.Services {
         active: number = 0;
 
         setActive(i: number) {
-            debugger
             this.active = i;
         }
 

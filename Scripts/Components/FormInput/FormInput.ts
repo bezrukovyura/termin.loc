@@ -9,7 +9,7 @@
     $onInit?(): void {
 
       this.$scope.$watch("ctrl.storageService.UnitToEdit", (valNew: Unit) => {
-        debugger
+
         if (valNew) {
           this.unit = this.storageService.UnitToEdit;
         }

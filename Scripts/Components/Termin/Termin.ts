@@ -13,13 +13,6 @@ namespace Termin.Components {
 
         public showProgressBar: boolean = false;
 
-        public exit() {
-            debugger
-            this.accountService.exit();
-            this.accountService.user = undefined;
-            this.$scope.userRole = {level: -1}
-        }
-
 
         $onInit?(): void {
             
@@ -36,6 +29,12 @@ namespace Termin.Components {
                     this.$scope.tab = {i: 2};
                 }
             });
+
+            this.$scope.exit = ()=> {
+                this.accountService.exit();
+                this.accountService.user = undefined;
+                this.$scope.userRole = {level: -1}
+            };
 
         }
 

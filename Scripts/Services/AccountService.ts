@@ -13,15 +13,16 @@
     public user: User;
 
     /** 0 - user, 1 - admin, -1 - error */
+
     getUser(user: User): ng.IPromise<User> {
       return this.$http.post<User[]>(AccountService.baseUrl, { method: "getRole", user: user })
         .then((response) => {
-          debugger
 
-          if(response.data.length !== 1)
+          if (response.data.length !== 1)
             return undefined;
 
           if (response.data[0].role == 1 || response.data[0].role == 0) {
+            this.setKeyStorage(user);
             this.user = response.data[0];
             this.user.role = +this.user.role;
             return this.user;
@@ -29,27 +30,38 @@
           return undefined;
         },
           (r) => {
-            debugger
             return this.$q.reject(undefined);
           }
         );
     };
 
-    exit(){
-      this.removeKeyStorage();
-    }
-    setKeyStorage(user: User) {
-      debugger
-      localStorage.setItem("secureKey", md5(user.password))
+
+    restoreSession(): ng.IPromise<User> {
+      let user = this.getKeyStorage();
+      if(user.email && user.email && user.email.length > 1 && user.email.length > 1)
+      return this.getUser({email: user.email, password: user.password});
     }
 
-    getKeyStorage(user: User) {
-      debugger
-      localStorage.getItem("secureKey")
+    exit() {
+      this.removeKeyStorage();
+    }
+
+    setKeyStorage(user: User) {
+      localStorage.setItem("password", user.password)
+      localStorage.setItem("email", user.email)
+    }
+
+    getKeyStorage(): { email: string, password: string } {
+      return {
+        email: localStorage.getItem("email"),
+        password: localStorage.getItem("password")
+      }
+
     }
 
     removeKeyStorage() {
-      localStorage.setItem("secureKey", "")
+      localStorage.setItem("password", "")
+      localStorage.setItem("email", "")
     }
 
   }

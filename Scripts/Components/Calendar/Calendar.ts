@@ -22,7 +22,7 @@
     $onInit?(): void {
 
       this.$scope.$watch("ctrl.tabs.active", (x: number) => {
-        debugger
+
         if (x == 0)
           this.update();
       });
