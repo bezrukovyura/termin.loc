@@ -27,6 +27,7 @@
 
      public static function setterms($jsonArray)
      {
+
       $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
 
       $date = $jsonArray["date"];
@@ -55,6 +56,7 @@
 
      public static function updateterms($jsonArray)
      {
+
       $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
 
       $date = $jsonArray["date"];

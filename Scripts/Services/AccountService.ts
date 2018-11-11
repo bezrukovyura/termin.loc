@@ -4,6 +4,8 @@
 
   export class AccountService {
 
+    /**  0 - user, 1 - admin, -1 - error === user.role */
+
     private static baseUrl = "/php/users.php";
 
     static $inject: string[] = ["$http", "$q"];
@@ -12,7 +14,18 @@
 
     public user: User;
 
-    /** 0 - user, 1 - admin, -1 - error */
+    
+
+    logout(): ng.IPromise<boolean> {
+      return this.$http.post<any>(AccountService.baseUrl, { method: "logout" })
+        .then((response) => {
+            return true;
+        },
+          (r) => {
+            return this.$q.reject(false);
+          }
+        );
+    };
 
     getUser(user: User): ng.IPromise<User> {
       return this.$http.post<User[]>(AccountService.baseUrl, { method: "getRole", user: user })
@@ -43,6 +56,7 @@
     }
 
     exit() {
+      this.logout().then(()=>{});
       this.removeKeyStorage();
     }
 
@@ -56,7 +70,6 @@
         email: localStorage.getItem("email"),
         password: localStorage.getItem("password")
       }
-
     }
 
     removeKeyStorage() {

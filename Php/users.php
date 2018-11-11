@@ -1,4 +1,8 @@
 <?php
+
+ // session_start();
+
+  
   header('Access-Control-Allow-Origin: *'); 
 
   require_once "rest.php";
@@ -26,9 +30,24 @@
 
       mysqli_close($connection);
 
+      if(count($emparray) == 1) {
+        if(isset($_SESSION['userLevel'])) {
+          unset($_SESSION['userLevel']);
+        }
+        $_SESSION['userLevel'] = $emparray[0]["role"];
+
+      }
       return json_encode($emparray);
       
      }
+
+     public static function logout() 
+     {
+      if(isset($_SESSION['userLevel'])) {
+        unset($_SESSION['userLevel']);
+      }
+     }
+
 
     
      
