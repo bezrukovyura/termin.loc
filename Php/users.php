@@ -49,7 +49,34 @@
      }
 
 
-    
+     public static function allUsers()
+     {
+      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
+      $sql = "select * from users";
+      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+
+      $emparray = array();
+      while($row =mysqli_fetch_assoc($result))
+      {
+          $emparray[] = $row;
+      }
+      
+      mysqli_close($connection);
+
+      return json_encode($emparray);
+     }
+
+
+     public static function removeUser($user)
+     {
+      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
+      $id = $user["id"];
+      $sql = "DELETE FROM users WHERE id='$id'";
+      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+      mysqli_close($connection);
+      return "ok";
+     }
+     
      
   }
 

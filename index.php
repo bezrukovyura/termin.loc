@@ -27,6 +27,7 @@
   <script src="./Scripts/Components/FormInput/FormInput.js"></script>
   <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
   <script src="./Scripts/Components/Calendar/Calendar.js"></script>
+  <script src="./Scripts/Components/UsersEditor/UsersEditor.js"></script>
   <script src="./Scripts/app.js"></script>
 
 </head>
@@ -86,7 +87,7 @@ body {
         <md-tab label="Добавление" ng-if="userRole.level>-1">
           <form-input-component show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
-        <md-tab label="Пользователи" ng-if="userRole.level>0"></md-tab>
+        <md-tab label="Пользователи" ng-if="userRole.level>0"><users-editor-component /></md-tab>
       </md-tabs>
     </md-content>
 

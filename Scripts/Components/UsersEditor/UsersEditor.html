@@ -1,0 +1,34 @@
+﻿<style>
+    users-editor-component {
+        overflow: hidden;
+        display: block;
+        margin: 28px auto 0 auto;
+        max-width: 95%;
+    }
+
+    users-editor-component .item>div>div {
+        float: left;
+    }
+
+    users-editor-component .item>div {
+        width: 100%;
+        overflow: hidden;
+        margin: 10px 0;
+    }
+</style>
+
+<div class="wrapp">
+    <div class="item" ng-repeat="item in ctrl.allUsers">
+        <div>
+            <input type="text" ng-model="item.name">
+            <input type="text" ng-model="item.email">
+            <input type="text" ng-model="item.role">
+            <input type="password" ng-model="item.password">
+            <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>            
+        </div>
+    </div>
+
+    <md-button ng-click="ctrl.add()" class="md-raised colorYellow">Добавить</md-button>
+    <md-button ng-click="ctrl.save()" ng-disabled class="md-raised colorGreen">Сохранить(в процессе создания)</md-button>
+
+</div>

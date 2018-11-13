@@ -12,6 +12,7 @@ angular.module('termin', ['ngMaterial', 'ngMessages'])
   .component("formInputComponent", Termin.Components.FormInputComponent)
   .component("loginAccessComponent", Termin.Components.LoginAccessComponent)
   .component("calendarComponent", Termin.Components.CalendarComponent)
+  .component("usersEditorComponent", Termin.Components.UsersEditorComponent)
   .config(
     function($mdDateLocaleProvider: any) {
       $mdDateLocaleProvider.formatDate = function(date: any) {

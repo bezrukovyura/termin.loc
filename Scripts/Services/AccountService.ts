@@ -14,8 +14,6 @@
 
     public user: User;
 
-    
-
     logout(): ng.IPromise<boolean> {
       return this.$http.post<any>(AccountService.baseUrl, { method: "logout" })
         .then((response) => {
@@ -48,6 +46,38 @@
         );
     };
 
+    getAllUser(): ng.IPromise<User[]> {
+      return this.$http.post<User[]>(AccountService.baseUrl, { method: "allUsers"})
+        .then((response) => {
+
+          if (response.data.length < 1){
+            alert("Не удалось запросить список пользователей");
+            return undefined;
+          }
+
+          return response.data;
+        },
+          (r) => {
+            return this.$q.reject(undefined);
+          }
+        );
+    };
+
+    remove(user: User){
+      return this.$http.post<string>(AccountService.baseUrl, { method: "removeUser", user: user})
+      .then((response) => {
+        if (response.data != "ok"){
+          alert("Не удалось удалить пользователя");
+          return undefined;
+        }
+
+        return response.data;
+      },
+        (r) => {
+          return this.$q.reject(undefined);
+        }
+      );
+    }
 
     restoreSession(): ng.IPromise<User> {
       let user = this.getKeyStorage();
