@@ -51,7 +51,7 @@
 
      public static function allUsers()
      {
-      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
+      $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
       $sql = "select * from users";
       $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
@@ -69,7 +69,7 @@
 
      public static function removeUser($user)
      {
-      $connection = mysqli_connect("localhost","admin","password1","termin") or die("Error " . mysqli_error($connection));
+      $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
       $id = $user["id"];
       $sql = "DELETE FROM users WHERE id='$id'";
       $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
