@@ -42,7 +42,7 @@
 
     <div class="nowDate">
         <div>
-            {{ctrl.allStrings.date}}
+            <md-datepicker ng-change="ctrl.update()" md-open-on-focus md-placeholder ng-model="ctrl.dateEdit" />
         </div>
 
     </div>

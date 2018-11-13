@@ -8,11 +8,10 @@
 
   class CalendarController implements ng.IController {
 
-    static $inject: string[] = ["$scope", "$timeout", "StorageService", "ConverterService", "TabService"];
+    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "TabService"];
 
     constructor(
       public $scope: ng.IScope, 
-      private $timeout: ng.ITimeoutService, 
       private storageService: Services.StorageService, 
       private converter: Services.ConverterService,
       private tabs: Services.TabService
@@ -29,8 +28,11 @@
 
     }
 
+    public dateEdit: string = this.converter.date(new Date());
+
     private update = () => {
-      this.init("2018-11-11");
+      debugger
+      this.init(this.converter.date(<any>this.dateEdit));
     }
 
 
@@ -93,8 +95,6 @@
       this.storageService.UnitToEdit = unit;
       this.tabs.setActive(1);
     }
-
-
 
 
   }
