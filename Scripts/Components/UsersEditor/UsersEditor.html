@@ -24,11 +24,11 @@
             <input type="text" ng-model="item.email">
             <input type="text" ng-model="item.role">
             <input type="password" ng-model="item.password">
+            <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">Сохранить</md-button>            
             <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>            
         </div>
     </div>
 
     <md-button ng-click="ctrl.add()" class="md-raised colorYellow">Добавить</md-button>
-    <md-button ng-click="ctrl.save()" ng-disabled class="md-raised colorGreen">Сохранить(в процессе создания)</md-button>
 
 </div>

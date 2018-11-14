@@ -42,6 +42,49 @@
       
      }
 
+
+     
+
+     public static function createUser($user)
+     {
+
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
+
+      $name = $user["name"];
+      $password = $user["password"];
+      $email = $user["email"];
+      $role = $user["role"];
+
+      $sql = "INSERT INTO users (`name`, `password`, email, `role`) VALUES ('$name', '$password', '$email', '$role')";
+
+      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+
+      mysqli_close($connection);
+
+      return "ok";
+    }
+
+
+     public static function updateUser($user)
+     {
+
+      $password = $user["password"]; 
+      $email = $user["email"];
+      $id = $user["id"];
+      $name = $user["name"];
+      $role = $user["role"];
+
+      $sql = "UPDATE bezrukovyra_dev2.users SET `password`='$password', email='$email', name='$name', role='$role'  WHERE users.id='$id'";
+
+      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+
+      mysqli_close($connection);
+
+      return "ok";
+      
+     }
+
+
      public static function logout() 
      {
       if(isset($_SESSION['userLevel'])) {

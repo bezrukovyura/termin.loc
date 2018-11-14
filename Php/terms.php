@@ -75,7 +75,7 @@
       $userRegister = $jsonArray["userRegister"];
       $visitDateNumber = $jsonArray["visitDateNumber"];
 
-      $sql = "UPDATE termin.termins SET `date`='$date', hour='$hour', minute='$minute', fam='$fam', `name`='$name', birthday='$birthday', phone1='$phone1', phone2='$phone2', region='$region', insurance='$insurance', zuweiser='$zuweiser', comments='$comments', userRegister='$userRegister', visitDateNumber='$visitDateNumber' WHERE termins.id='$id'";
+      $sql = "UPDATE bezrukovyra_dev2.termins SET `date`='$date', hour='$hour', minute='$minute', fam='$fam', `name`='$name', birthday='$birthday', phone1='$phone1', phone2='$phone2', region='$region', insurance='$insurance', zuweiser='$zuweiser', comments='$comments', userRegister='$userRegister', visitDateNumber='$visitDateNumber' WHERE termins.id='$id'";
 
       $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 

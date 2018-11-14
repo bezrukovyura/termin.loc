@@ -63,7 +63,33 @@
         );
     };
 
-    remove(user: User){
+    update(user: User){
+      return this.$http.post<string>(AccountService.baseUrl, { method: "updateUser", user: user})
+      .then((response) => {
+        if (response.data != "ok"){
+          alert("Не удалось обновить пользователя");
+          return undefined;
+        }
+
+        return response.data;
+      },
+        (r) => {
+          return this.$q.reject(undefined);
+        }
+      );
+    }
+
+    create(user: User): ng.IPromise<boolean>{
+      return this.$http.post<string>(AccountService.baseUrl, { method: "createUser", user: user})
+        .then((response) => {
+          return response.data == "ok" ? true : false;
+        },
+          (r) => {
+            return this.$q.reject(r.data);
+          }
+        );
+    }
+    remove(user: User) {
       return this.$http.post<string>(AccountService.baseUrl, { method: "removeUser", user: user})
       .then((response) => {
         if (response.data != "ok"){

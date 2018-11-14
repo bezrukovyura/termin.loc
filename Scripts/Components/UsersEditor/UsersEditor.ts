@@ -11,6 +11,7 @@
     ];
 
     public allUsers: User[];
+    public oldAllUsers: User[];
 
     constructor(
       public $scope: ng.IScope,
@@ -22,14 +23,38 @@
 
     }
 
-    save() {
-      // this.accounts.saveAllUser( this.allUsers).then(x => {
-      //   if(x == "ok")
-      //     this.toast("Сохранено", "");
-      //   else
-      //     alert("Ошибка сохранения");
+    save(user: User) {
 
-      // });
+
+
+      if(user.id) {
+        
+        this.oldAllUsers.forEach(x=> {
+          if(x.id === user.id && x.password !== user.password)
+              user.password = md5(user.password);
+        });
+
+        this.accounts.update(user).then(x => {
+          if(x == "ok"){
+            this.toast("Сохранено", "");
+            this.update();
+          }
+          else
+            alert("Ошибка сохранения");
+        });
+      } 
+      else {
+        user.password = md5(user.password);
+        this.accounts.create(user).then(x => {
+          if(x){
+            this.toast("Создано", "");
+            this.update();
+          }
+          else
+            alert("Ошибка сохранения");
+        });
+      }
+
     }
 
     add() {
@@ -58,6 +83,7 @@
     update = () => {
       this.accounts.getAllUser().then(x => {
         this.allUsers = x;
+        this.oldAllUsers = _.cloneDeep(x);
       });
     }
 
