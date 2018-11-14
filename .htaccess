@@ -1,0 +1,7 @@
+
+<ifModule mod_headers.c>
+    # Отключаем кеширование php и других служебных файлов
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi|html|js)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>

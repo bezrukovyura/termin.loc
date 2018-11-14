@@ -1,5 +1,11 @@
 <?php
 
+class DB {
+	static public $name = 'bezrukovyra_dev2';
+	static public $login = 'bezrukovyra_dev2';
+	static public $password = 'password1';
+}
+
   class RestServer
 	{
 		public $serviceClass;

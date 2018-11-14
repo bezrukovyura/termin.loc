@@ -44,8 +44,6 @@ gulp.task('default', ['typescript', 'less']);
 
 
 
-
-
 gulp.task('deploy', ['typescript', 'vendors', 'copyHtml', 'copyJs', 'copyPhp', 'copyIndex', 'copyImg', 'copyCss']);
 
 gulp.task('copyJs', function () {
@@ -69,8 +67,8 @@ gulp.task('copyHtml', function () {
 });
 
 gulp.task('copyPhp', function () {
-  return gulp.src('./Php/*.php')
-    .pipe(gulp.dest('./deploy/Php'));
+  return gulp.src('./php/*.php')
+    .pipe(gulp.dest('./deploy/php'));
 });
 
 gulp.task('copyIndex', function () {
@@ -82,8 +80,7 @@ gulp.task('copyIndex', function () {
 
 
 
-
-gulp.task('vendors', ['vendorsJs', 'vendorsCss']);
+gulp.task('vendors', ['clean', 'vendorsJs', 'vendorsCss']);
 
 gulp.task('vendorsJs', function () {
   return gulp.src([
@@ -110,6 +107,6 @@ gulp.task('vendorsCss', function () {
 
 
 gulp.task('clean', function () {
-  return del('./deploy/**', { force: true });
+  return del('./deploy/**/*.*', { force: true });
 });
 

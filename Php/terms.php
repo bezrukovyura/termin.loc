@@ -10,7 +10,7 @@
   {
      public static function getterms($date)
      {
-      $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
       $sql = "select * from termins WHERE `date`='$date'";
       $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
 
@@ -28,7 +28,7 @@
      public static function setterms($jsonArray)
      {
 
-      $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
 
       $date = $jsonArray["date"];
       $hour = $jsonArray["hour"];
@@ -57,7 +57,7 @@
      public static function updateterms($jsonArray)
      {
 
-      $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
 
       $date = $jsonArray["date"];
       $id = $jsonArray["id"];
@@ -85,7 +85,7 @@
      }
 
       public static function deleteterms($jsonArray) {
-        $connection = mysqli_connect("localhost","bezrukovyra","password1","bezrukovyra_dev2") or die("Error " . mysqli_error($connection));
+        $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
         $id = $jsonArray["id"];
         $sql = "DELETE FROM termins WHERE id='$id'";
         $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));

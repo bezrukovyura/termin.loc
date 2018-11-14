@@ -79,10 +79,12 @@
       );
     }
 
-    restoreSession(): ng.IPromise<User> {
+    restoreSession(): ng.IPromise<User | void> {
       let user = this.getKeyStorage();
       if(user.email && user.email && user.email.length > 1 && user.email.length > 1)
-      return this.getUser({email: user.email, password: user.password});
+        return this.getUser({email: user.email, password: user.password});
+      else 
+        return this.$q.when();
     }
 
     exit() {
