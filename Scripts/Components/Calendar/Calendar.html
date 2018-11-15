@@ -32,35 +32,113 @@
     }
 
     calendar-component .nowDate>div {
-        border-bottom: 1px solid #d0d0d0;
         float: left;
+    }
+
+    calendar-component .bhp-btn {
+        background: #ff4081;
+        color: white;
+        font-size: 13px;
+        border-radius: 12px;
+        height: 18px;
+        width: 18px;
+        line-height: 18px;
+        text-align: center;
+        margin: 0px 0 0 10px;
+    }
+
+    calendar-component .termins>div {
+        float: left;
+        margin: 0 5px;
+    }
+
+    calendar-component .miniNav {
+        margin: -6px 0 0 40px;
+    }
+
+    calendar-component .miniNav>* {
+        float: left;
+    }
+
+    calendar-component .termins {
+        margin: 13px 10px;
+        padding: 4px 7px;
+        box-shadow: 0 0 5px #212121;
+        border-radius: 18px;
+    }
+
+    calendar-component .md-button.active {
+        background: red !important;
+    }
+
+    calendar-component .md-button.disable {
+        background: gray !important;
     }
 </style>
 
 
-<div class="calendar bhp-wrap">
+<div class="calendar bhp-wrap" ng-class="{'isFinalCommit': ctrl.isFinalCommit,'isChange': ctrl.toChangeClass}">
 
     <div class="nowDate">
         <div>
             <md-datepicker ng-change="ctrl.update()" md-open-on-focus md-placeholder ng-model="ctrl.dateEdit" />
         </div>
 
+        <div class="miniNav">
+            <md-button ng-click="ctrl.changeTermins()" class="md-fab md-mini" aria-label="Mini FAB" ng-class="ctrl.toChangeClass ? 'actrive' : 'disable'">
+                <md-icon md-svg-src="img/{{ctrl.toChangeOk ? 'done.svg' : 'refresh.svg'}}"></md-icon>
+            </md-button>
+
+            <div class="termins" ng-if="ctrl.toChange && ctrl.toChange.length">
+                <div class="first" ng-if="ctrl.toChange.length > 0">
+                    {{ctrl.toChange[0].date}} {{ctrl.toChange[0].hour}}:{{ctrl.toChange[0].minute}}
+                    {{ctrl.toChange[0].fam}}</div>
+                <div>
+                    <>
+                </div>
+                <div class="first" ng-if="ctrl.toChange.length > 1">
+                    {{ctrl.toChange[1].fam}} {{ctrl.toChange[1].date}}
+                    {{ctrl.toChange[1].hour}}:{{ctrl.toChange[1].minute}}</div>
+            </div>
+
+            <md-button ng-click="ctrl.finalCommit()" class="md-fab md-mini" aria-label="Mini FAB" ng-class="ctrl.isFinalCommit ? 'actrive' : 'disable'">
+                <md-icon md-svg-src="img/commit.svg"></md-icon>
+            </md-button>
+
+        </div>
     </div>
+
+
 
     <div class="halfDay half">
         <div class="item first" ng-repeat="item in ctrl.allStrings.first">
-            <div ng-click="ctrl.onEdit(item)" class="pointer">
-                <div class="time">{{item.hour}}:{{item.minute}}</div>
-                <div class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+            <div class="pointer">
+                <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
+                <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+                <div ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
+                <div ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
             </div>
         </div>
     </div>
     <div class="halfDay half">
         <div class="item second" ng-repeat="item in ctrl.allStrings.second">
-            <div ng-click="ctrl.onEdit(item)" class="pointer">
-                <div class="time">{{item.hour}}:{{item.minute}}</div>
-                <div class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+            <div class="pointer">
+                <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
+                <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+                <div ng-if="item.id  && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
+                <div ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
             </div>
         </div>
+    </div>
+
+
+</div>
+
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="mdStaticDialog">
+        <md-dialog>
+            This is a pre-rendered dialog.
+        </md-dialog>
     </div>
 </div>

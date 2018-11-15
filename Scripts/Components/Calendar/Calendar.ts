@@ -8,15 +8,16 @@
 
   class CalendarController implements ng.IController {
 
-    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "TabService"];
+    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "TabService", "$mdDialog"];
 
     constructor(
-      public $scope: ng.IScope, 
-      private storageService: Services.StorageService, 
+      public $scope: ng.IScope,
+      private storageService: Services.StorageService,
       private converter: Services.ConverterService,
-      private tabs: Services.TabService
-      ) { }
-    
+      private tabs: Services.TabService,
+      private $mdDialog: any
+    ) { }
+
 
     $onInit?(): void {
 
@@ -36,8 +37,8 @@
     }
 
 
-   /** все термины за день, разделенные на первую и вторую половину */
-     private allStrings: AllStrings = { first: [], second: [] };
+    /** все термины за день, разделенные на первую и вторую половину */
+    private allStrings: AllStrings = { first: [], second: [] };
 
     private showProgressBar: boolean;
 
@@ -50,6 +51,77 @@
         }
       }
       return strings;
+    }
+
+    public changeTermins() {
+      if (!this.toChangeClass) {
+        this.toChangeClass = true;
+      }
+      else {
+        if (this.toChange.length == 2) {
+          let tmp0: Unit = _.cloneDeep(this.toChange[0]);
+          tmp0.date = this.toChange[1].date;
+          tmp0.hour = this.toChange[1].hour;
+          tmp0.minute = this.toChange[1].minute;
+          let tmp1: Unit = _.cloneDeep(this.toChange[1]);
+          tmp1.date = this.toChange[0].date;
+          tmp1.hour = this.toChange[0].hour;
+          tmp1.minute = this.toChange[0].minute;
+
+          this.storageService.update(tmp0).then(x => {
+            if (x)
+              this.storageService.update(tmp1).then(y => {
+                if (y) {
+                  this.update();
+                  this.toChangeOk = false;
+                }
+                else
+                  alert("Не удалось поменять местами")
+              });
+            else
+              alert("Не удалось поменять местами")
+          });
+        }
+        this.toChangeClass = false;
+        this.toChange = [];
+      }
+    }
+
+    public addToChange(unit: Unit) {
+      if (!unit.id)
+        return;
+
+      if (this.toChange.length < 3)
+        this.toChange.push(unit);
+      else {
+        this.toChange = [];
+        this.toChange.push(unit);
+      }
+
+      this.toChangeOk = this.toChange.length == 2;
+    }
+
+    /** для отображения плюсов возле надписей */
+    public toChangeClass: boolean = false;
+    /** для отображения плюсов возле надписей */
+    public toChangeOk: boolean = false;
+    /** массив из двух записей, чтобы поменять время приема */
+    public toChange: Unit[] = [];
+
+
+    public isFinalCommit: boolean = false;
+
+    public finalCommit() {
+      this.isFinalCommit = !this.isFinalCommit;
+    }
+
+    public finalCommitDialog(unit: Unit) {
+      if (!unit.id)
+        return;
+      this.$mdDialog.show({
+        contentElement: '#mdStaticDialog',
+        parent: angular.element(document.body)
+      });
     }
 
     /** Отрисовка */

@@ -15,9 +15,16 @@ angular.module('termin', ['ngMaterial', 'ngMessages'])
   .component("usersEditorComponent", Termin.Components.UsersEditorComponent)
   .config(
     function($mdDateLocaleProvider: any) {
+
+      $mdDateLocaleProvider.firstDayOfWeek = 1;
+      $mdDateLocaleProvider.months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт','ноя','дек'];
+      $mdDateLocaleProvider.shortMonths = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт','ноя','дек'];
+      $mdDateLocaleProvider.days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+      $mdDateLocaleProvider.shortDays = ['Вс', 'Пн', 'Вт', 'Ср','Чт','Пт','Сб'];
       $mdDateLocaleProvider.formatDate = function(date: any) {
         return moment(date).format('YYYY-MM-DD');
       };
+      
     }
   )
   .controller('myCtrl', Termin.Components.TerminController);
