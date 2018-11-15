@@ -29,7 +29,7 @@
 
       this.AccountService.restoreSession().then(
         x=>{
-          if (x && x.role && x.role > -1) {
+          if (x && x.role !== undefined && x.role > -1) {
             this.toast(x.name + ", рады Вас видеть!", "");
             this.tabs.setActive(1);
             this.userRole.name = x.name ;
@@ -44,7 +44,7 @@
       this.showProgressBar = true;
       this.AccountService.getUser({ email: this.email, password: md5(this.password) }).then(x => {
 
-        if (x && x.role && x.role > -1) {
+        if (x && x.role !== undefined && x.role > -1) {
           this.toast(x.name + ", рады Вас видеть!", "");
           this.tabs.setActive(1);
           this.userRole.name = x.name ;

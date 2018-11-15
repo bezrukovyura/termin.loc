@@ -82,10 +82,10 @@ body {
           <login-access-component show-progress-bar="myCtrl.showProgressBar" user-role="userRole" />
         </md-tab>
         <md-tab label="Календарь" ng-if="userRole.level>-1">
-          <calendar-component show-progress-bar="myCtrl.showProgressBar" />
+          <calendar-component role="userRole.level" show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
         <md-tab label="Добавление" ng-if="userRole.level>-1">
-          <form-input-component show-progress-bar="myCtrl.showProgressBar" />
+          <form-input-component role="userRole.level" show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
         <md-tab label="Пользователи" ng-if="userRole.level>0"><users-editor-component /></md-tab>
       </md-tabs>

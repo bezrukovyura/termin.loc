@@ -67,6 +67,7 @@
 
      public static function updateUser($user)
      {
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
 
       $password = $user["password"]; 
       $email = $user["email"];

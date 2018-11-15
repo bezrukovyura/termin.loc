@@ -8,6 +8,11 @@
 
     $onInit?(): void {
 
+
+      debugger
+
+      this.roleAdmin = this.role == 1 ? true : false;
+
       this.$scope.$watch("ctrl.storageService.UnitToEdit", (valNew: Unit) => {
 
         if (valNew) {
@@ -17,6 +22,8 @@
 
     }
 
+    public role: number;
+    public roleAdmin: boolean = false;
     public unit: Unit;
     private showProgressBar: boolean;
     private tab: {i: number};
@@ -98,7 +105,8 @@
   export const FormInputComponent: angular.IComponentOptions = {
     bindings: {
       showProgressBar: "=",
-      tab: "="
+      tab: "=",
+      role: "="
     },
     controller: FormInputController,
     controllerAs: "ctrl",

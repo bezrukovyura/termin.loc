@@ -74,6 +74,31 @@
     calendar-component .md-button.disable {
         background: gray !important;
     }
+
+    .md-dialog-container .close {
+        background: gray;
+        width: 19px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        box-shadow: 0 0 3px black;
+        font-weight: bold;
+    }
+
+    .md-dialog-container md-input-container {
+        margin: 40px;
+    }
+
+    .md-dialog-container button {
+        float: right;
+    }
+
+    calendar-component .item.disable {
+        font-style: italic;
+        color: gray;
+    }
 </style>
 
 
@@ -111,22 +136,26 @@
 
 
     <div class="halfDay half">
-        <div class="item first" ng-repeat="item in ctrl.allStrings.first">
+        <div class="item first" ng-repeat="item in ctrl.allStrings.first" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
             <div class="pointer">
                 <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                 <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
-                <div ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
-                <div ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
+                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)"
+                    class="bhp-btn">+</div>
+                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)"
+                    class="bhp-btn">✔</div>
             </div>
         </div>
     </div>
     <div class="halfDay half">
-        <div class="item second" ng-repeat="item in ctrl.allStrings.second">
+        <div class="item second" ng-repeat="item in ctrl.allStrings.second" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
             <div class="pointer">
                 <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                 <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
-                <div ng-if="item.id  && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
-                <div ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
+                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id  && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)"
+                    class="bhp-btn">+</div>
+                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)"
+                    class="bhp-btn">✔</div>
             </div>
         </div>
     </div>
@@ -135,10 +164,15 @@
 </div>
 
 
-<div style="visibility: hidden">
+<div style="visibility: hidden" class="terminReception">
     <div class="md-dialog-container" id="mdStaticDialog">
         <md-dialog>
-            This is a pre-rendered dialog.
+            <div class="close" ng-click="ctrl.finalCommitDialogClose()">X</div>
+            <md-input-container>
+                <label>Прием термина</label>
+                <input ng-model="ctrl.terminReception">
+                <md-button ng-click="ctrl.terminReceptionApply()" class="md-raised colorRed">Сохранить</md-button>
+            </md-input-container>
         </md-dialog>
     </div>
 </div>

@@ -21,18 +21,21 @@
 
     $onInit?(): void {
 
-      this.$scope.$watch("ctrl.tabs.active", (x: number) => {
+      this.roleAdmin = this.role == 1 ? true : false;
 
+      this.$scope.$watch("ctrl.tabs.active", (x: number) => {
         if (x == 0)
           this.update();
       });
 
     }
 
+    public role: number;
+    public roleAdmin: boolean = false;
+
     public dateEdit: string = this.converter.date(new Date());
 
     private update = () => {
-      debugger
       this.init(this.converter.date(<any>this.dateEdit));
     }
 
@@ -118,9 +121,30 @@
     public finalCommitDialog(unit: Unit) {
       if (!unit.id)
         return;
+        this.terminReceptionObject = unit;
       this.$mdDialog.show({
         contentElement: '#mdStaticDialog',
         parent: angular.element(document.body)
+      });
+    }
+
+    public finalCommitDialogClose(){
+      this.$mdDialog.hide( alert, "finished" );
+      this.terminReception = undefined;
+    }
+
+    public terminReception: string;
+    public terminReceptionObject: Unit;
+
+    public terminReceptionApply(){
+      this.terminReceptionObject.visitDateNumber = this.terminReception;
+      this.storageService.update(this.terminReceptionObject).then(x=>{
+        if(x){
+          this.update();
+          this.finalCommitDialogClose();
+        }
+        else
+          alert("Не удалось сохранить");
       });
     }
 
@@ -174,7 +198,8 @@
   export const CalendarComponent: angular.IComponentOptions = {
     bindings: {
       tab: "=",
-      showProgressBar: "="
+      showProgressBar: "=",
+      role: "="
     },
     controller: CalendarController,
     controllerAs: "ctrl",
