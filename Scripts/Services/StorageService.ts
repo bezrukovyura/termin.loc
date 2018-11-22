@@ -12,6 +12,7 @@ namespace Termin.Services {
 
     UnitToEdit: Unit;
 
+    /** Получить записи за указанную дату */
     get(date: string): ng.IPromise<Unit[]> {
       return this.$http.post<Unit[]>(StorageService.baseUrl, {method: "getterms", date: date})
         .then((response) => {

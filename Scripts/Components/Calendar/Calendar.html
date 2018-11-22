@@ -99,6 +99,21 @@
         font-style: italic;
         color: gray;
     }
+
+    calendar-component .oneDay {
+        overflow: hidden;
+        margin: 10px 0 0 0;
+        padding: 10px;
+        background: white;
+        box-shadow: 0 0 1px gainsboro;
+    }
+
+    calendar-component .dayDate {
+        margin: 0 0 10px 0;
+        border-left: 1px solid #868686;
+        padding: 0 0 0 3px;
+        border-radius: 7px;
+    }
 </style>
 
 
@@ -107,6 +122,12 @@
     <div class="nowDate">
         <div>
             <md-datepicker ng-change="ctrl.update()" md-open-on-focus md-placeholder ng-model="ctrl.dateEdit" />
+        </div>
+
+        <div>
+            <md-select ng-change="ctrl.update()" ng-model="ctrl.selectCountDays" placeholder="1 день" style="margin:3px 0 0 15px">
+                <md-option ng-value="x" ng-repeat="x in ctrl.countsDay">{{x}}</md-option>
+            </md-select>
         </div>
 
         <div class="miniNav">
@@ -130,37 +151,48 @@
                 <md-icon md-svg-src="img/commit.svg"></md-icon>
             </md-button>
 
+            <md-button ng-click="ctrl.openPdf()" class="md-fab md-mini disable" aria-label="Mini FAB">
+                <md-icon md-svg-src="img/printer.svg"></md-icon>
+            </md-button>
+
+
         </div>
     </div>
 
+    <div id="toPrint">
+        <div ng-repeat="Day in ctrl.allDays" class="oneDay">
 
 
-    <div class="halfDay half">
-        <div class="item first" ng-repeat="item in ctrl.allStrings.first" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
-            <div class="pointer">
-                <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
-                <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
-                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)"
-                    class="bhp-btn">+</div>
-                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)"
-                    class="bhp-btn">✔</div>
+            <div class="dayDate">{{Day.date}}</div>
+
+            <div class="halfDay half">
+                <div class="item first" ng-repeat="item in Day.first" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
+                    <div class="pointer">
+                        <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
+                        <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+                        <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass"
+                            ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
+                        <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit"
+                            ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="halfDay half">
-        <div class="item second" ng-repeat="item in ctrl.allStrings.second" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
-            <div class="pointer">
-                <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
-                <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
-                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id  && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)"
-                    class="bhp-btn">+</div>
-                <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)"
-                    class="bhp-btn">✔</div>
+            <div class="halfDay half">
+                <div class="item second" ng-repeat="item in Day.second" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
+                    <div class="pointer">
+                        <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
+                        <div ng-click="ctrl.onEdit(item)" class="info">{{item.fam}} {{item.name}} / {{item.phone1}}</div>
+                        <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id  && ctrl.toChangeClass"
+                            ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
+                        <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit"
+                            ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
+                    </div>
+                </div>
             </div>
+
         </div>
+
     </div>
-
-
 </div>
 
 

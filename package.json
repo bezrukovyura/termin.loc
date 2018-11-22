@@ -11,7 +11,9 @@
     "angular": "1.6.9",
     "angular-animate": "1.6.9",
     "angular-aria": "1.6.9",
-    "angular-messages": "1.6.9"
+    "angular-messages": "1.6.9",
+    "pdfmake": "0.1.39",
+    "html2canvas": "1.0.0-alpha.12"
   },
   "devDependencies": {
     "gulp": "latest",
@@ -25,5 +27,8 @@
     "del": "latest",
     "@types/jquery": "3.3.22",
     "@types/lodash": "latest"
+  },
+  "scripts": {
+    "preinstall": "npm i typescript less gulp -g"
   }
 }

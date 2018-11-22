@@ -91,6 +91,9 @@ gulp.task('vendorsJs', function () {
     "./node_modules/angular-material/angular-material.min.js",
     "./node_modules/moment/min/moment.min.js",
     "./node_modules/lodash/lodash.min.js",
+    "./node_modules/html2canvas/dist/html2canvas.min.js",
+    "./node_modules/pdfmake/build/pdfmake.min.js",
+    "./node_modules/pdfmake/build/vfs_fonts.js",
     "./node_modules/js-md5/build/md5.min.js"
   ])
     .pipe(concat('vendors.js'))

@@ -22,7 +22,10 @@
         <div>
             <input type="text" ng-model="item.name">
             <input type="text" ng-model="item.email">
-            <input type="text" ng-model="item.role">
+            <select ng-model="item.role">
+                <option value="1">Администратор</option>
+                <option value="0">Пользователь</option>
+              </select>
             <input type="password" ng-model="item.password">
             <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">Сохранить</md-button>            
             <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>            

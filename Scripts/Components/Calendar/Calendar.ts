@@ -1,4 +1,7 @@
-﻿namespace Termin.Components {
+﻿declare var pdfMake: any;
+declare var html2canvas: any;
+
+namespace Termin.Components {
 
   class AllStrings {
     first: Unit[];
@@ -43,7 +46,10 @@
     /** все термины за день, разделенные на первую и вторую половину */
     private allStrings: AllStrings = { first: [], second: [] };
 
-    private showProgressBar: boolean;
+    /** Все дни для отображения */
+    private allDays: AllStrings[] = [];
+
+
 
     /** Создание пустых терминов на весь день */
     private createAllEmptyString(date: string, fromHour: number = 6, toHour: number = 20, interval: number = 30): Unit[] {
@@ -121,25 +127,25 @@
     public finalCommitDialog(unit: Unit) {
       if (!unit.id)
         return;
-        this.terminReceptionObject = unit;
+      this.terminReceptionObject = unit;
       this.$mdDialog.show({
         contentElement: '#mdStaticDialog',
         parent: angular.element(document.body)
       });
     }
 
-    public finalCommitDialogClose(){
-      this.$mdDialog.hide( alert, "finished" );
+    public finalCommitDialogClose() {
+      this.$mdDialog.hide(alert, "finished");
       this.terminReception = undefined;
     }
 
     public terminReception: string;
     public terminReceptionObject: Unit;
 
-    public terminReceptionApply(){
+    public terminReceptionApply() {
       this.terminReceptionObject.visitDateNumber = this.terminReception;
-      this.storageService.update(this.terminReceptionObject).then(x=>{
-        if(x){
+      this.storageService.update(this.terminReceptionObject).then(x => {
+        if (x) {
           this.update();
           this.finalCommitDialogClose();
         }
@@ -149,23 +155,27 @@
     }
 
     /** Отрисовка */
-    private init(date: string, count: number = 1) {
-      this.showProgressBar = true;
-      this.allStrings = {
-        first: [],
-        second: [],
-        date: ""
-      };
+    private init(date: string) {
+      debugger
 
-      this.storageService.get(date).then(x => {
-        this.render(date, x);
-        this.showProgressBar = false;
-      });
+      this.allDays = new Array(this.selectCountDays);
 
-      this.render(date);
+      for (let i = 0; i < this.allDays.length; i++) {
+        let datepoint = new Date(new Date(date).getTime() + 86400000 * i);
+        let stringDate = this.converter.date(datepoint);
+        this.storageService.get(stringDate).then(x => {
+          debugger
+          this.allDays[i] = this.render(stringDate, x);
+        });
+      }
+
+
+      //this.render(date);
+
+
     }
 
-    private render(date: string, exist?: Unit[]) {
+    private render(date: string, exist?: Unit[]): AllStrings {
 
       let units = this.createAllEmptyString(date);
       let prepareUnits: Unit[] = [];
@@ -178,7 +188,7 @@
         prepareUnits = units;
 
 
-      this.allStrings = {
+      return {
         first: prepareUnits.slice(0, prepareUnits.length / 2),
         second: prepareUnits.slice(prepareUnits.length / 2, prepareUnits.length),
         date: date
@@ -192,13 +202,35 @@
       this.tabs.setActive(1);
     }
 
+    /** Варианты количества дней для отображения */
+    countsDay: number[] = [
+      1, 2, 5, 7
+    ];
+
+    /** По умолчанию показываем один день */
+    selectCountDays: number = 1;
+
+    openPdf() {
+      debugger
+      html2canvas(document.getElementById('toPrint')).then((canvas: any) => {
+        var data = canvas.toDataURL();
+        var docDefinition = {
+          content: [{
+            image: data,
+            width: 500
+          }]
+        };
+        debugger
+        pdfMake.createPdf(docDefinition).open();
+      });
+
+    }
 
   }
 
   export const CalendarComponent: angular.IComponentOptions = {
     bindings: {
       tab: "=",
-      showProgressBar: "=",
       role: "="
     },
     controller: CalendarController,

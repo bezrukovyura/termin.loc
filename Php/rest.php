@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 class DB {
 	static public $name = 'bezrukovyra_dev2';
 	static public $login = 'bezrukovyra_dev2';
