@@ -15,6 +15,17 @@
         overflow: hidden;
         margin: 10px 0;
     }
+    @media (max-width: 600px) {
+        users-editor-component input {
+            width: 97%;
+            margin: 6px 0;
+        }
+
+        users-editor-component select {
+            width: calc(97% + 4px);
+        }
+    }
+
 </style>
 
 <div class="wrapp">
@@ -25,10 +36,10 @@
             <select ng-model="item.role">
                 <option value="1">Администратор</option>
                 <option value="0">Пользователь</option>
-              </select>
+            </select>
             <input type="password" ng-model="item.password">
-            <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">Сохранить</md-button>            
-            <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>            
+            <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">Сохранить</md-button>
+            <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>
         </div>
     </div>
 

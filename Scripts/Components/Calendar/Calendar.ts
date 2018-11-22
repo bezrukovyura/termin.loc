@@ -158,6 +158,7 @@ namespace Termin.Components {
     private init(date: string) {
       debugger
 
+
       this.allDays = new Array(this.selectCountDays);
 
       for (let i = 0; i < this.allDays.length; i++) {
@@ -204,15 +205,23 @@ namespace Termin.Components {
 
     /** Варианты количества дней для отображения */
     countsDay: number[] = [
-      1, 2, 5, 7
+      1, 2, 5, 7, 30
     ];
 
     /** По умолчанию показываем один день */
     selectCountDays: number = 1;
 
     openPdf() {
-      debugger
+
+      let viewport = document.querySelector("meta[name=viewport]");
+      if(this.selectCountDays == 30)
+        viewport.setAttribute('content', 'width=2023, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+      else
+        viewport.setAttribute('content', 'width=1300, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+
+
       html2canvas(document.getElementById('toPrint')).then((canvas: any) => {
+        debugger
         var data = canvas.toDataURL();
         var docDefinition = {
           content: [{
@@ -220,8 +229,9 @@ namespace Termin.Components {
             width: 500
           }]
         };
-        debugger
         pdfMake.createPdf(docDefinition).open();
+
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
       });
 
     }

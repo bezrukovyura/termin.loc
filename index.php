@@ -7,7 +7,10 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
   <meta charset="utf-8" />
+  <meta http-equiv="content-language" content="ru" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" type="image/png" href="img/icon.png" />
   <title>Termin</title>
 
@@ -59,7 +62,15 @@ body {
   position: relative; 
   margin: 0; 
 }
+@media(max-width: 600px) {
+  .md-toolbar-tools .md-truncate {
+      display: none;
+  }
 
+  .md-toolbar-tools button {
+      font-size: 10px;
+  }
+}
 </style>
 
 <body ng-app="termin" ng-controller="myCtrl">

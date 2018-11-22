@@ -42,7 +42,24 @@
         font-style: italic;
         text-decoration: underline;
         font-weight: 600;
-    }   
+    }
+
+    @media (max-width: 600px) {
+        form-input-component .bhp-half {
+            width: 100%;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        form-input-component md-input-container {
+            margin: 5px 0 0 0;
+        }
+
+        form-input-component .bhp-half>md-input-container {
+            max-width: 100%;
+            width: 97%;
+        }
+    }
 </style>
 
 
@@ -53,7 +70,8 @@
         <div>
             <label ng-hide="ctrl.unit.visitDateNumber">Дата "Термина"</label>
             <label class="visitDateNumber" if="ctrl.unit.visitDateNumber">{{ctrl.unit.visitDateNumber}}</label>
-            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder ng-model="ctrl.unit.date"></md-datepicker>
+            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
+                ng-model="ctrl.unit.date"></md-datepicker>
 
             <select ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.hour">
                 <option value="06">06</option>
@@ -91,7 +109,8 @@
 
         <div>
             <label>Дата рождения</label>
-            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder ng-model="ctrl.unit.birthday" />
+            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
+                ng-model="ctrl.unit.birthday" />
         </div>
 
         <md-input-container>

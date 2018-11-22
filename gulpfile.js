@@ -57,8 +57,8 @@ gulp.task('copyCss', function () {
 });
 
 gulp.task('copyImg', function () {
-  return gulp.src('./Scripts/**/*.png')
-    .pipe(gulp.dest('./deploy/Scripts'));
+  return gulp.src('./img/**/*.*')
+    .pipe(gulp.dest('./deploy/img'));
 });
 
 gulp.task('copyHtml', function () {
