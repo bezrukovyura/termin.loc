@@ -220,19 +220,40 @@ namespace Termin.Components {
         viewport.setAttribute('content', 'width=1300, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
 
 
-      html2canvas(document.getElementById('toPrint')).then((canvas: any) => {
-        debugger
-        var data = canvas.toDataURL();
-        var docDefinition = {
-          content: [{
-            image: data,
-            width: 500
-          }]
-        };
-        pdfMake.createPdf(docDefinition).open();
+      html2canvas(document.getElementById('toPrint'), {height: (<any>document.querySelector('.oneDay')).offsetHeight * 3 + 30})
+      .then((canvas: any) => {
+        var page1 = canvas.toDataURL();
+//        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+        html2canvas(document.getElementById('toPrint'), {y: (<any>document.querySelector('.oneDay')).offsetHeight * 3 + 150})
+        .then((canvas: any) => {
+          var page2 = canvas.toDataURL();
 
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+          var docDefinition = {
+            content: [{
+              image: page1,
+              width: 500,
+              pages: 2,
+              startPosition: {
+                pageNumber: 1
+              }
+            },
+            {
+              image: page2,
+              width: 500,
+              startPosition: {
+                pageNumber: 2
+              }
+            }]
+          };
+          pdfMake.createPdf(docDefinition).open();
+  
+          viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+        });
+      
       });
+
+
+
 
     }
 
