@@ -8,14 +8,16 @@
       "$scope",
       "AccountService",
       "$mdToast",
-      "TabService"
+      "TabService",
+      "TranslateService"
     ];
 
     constructor(
       public $scope: ng.IScope, 
       private AccountService: Services.AccountService, 
       private $mdToast: any,
-      private tabs: Services.TabService
+      private tabs: Services.TabService,
+      public translateService :Termin.Services.TranslateService
       ) { }
 
     private showProgressBar: boolean;
@@ -26,11 +28,11 @@
     private password: string;
 
     $onInit?(): void {
-
+      this.$scope.l = this.translateService;
       this.AccountService.restoreSession().then(
         x=>{
           if (x && x.role !== undefined && x.role > -1) {
-            this.toast(x.name + ", рады Вас видеть!", "");
+            this.toast(x.name + ", " + this.translateService.get().welcome, "");
             this.tabs.setActive(1);
             this.userRole.name = x.name ;
             this.role();
@@ -45,12 +47,12 @@
       this.AccountService.getUser({ email: this.email, password: md5(this.password) }).then(x => {
 
         if (x && x.role !== undefined && x.role > -1) {
-          this.toast(x.name + ", рады Вас видеть!", "");
+          this.toast(x.name + ", " + this.translateService.get().welcome, "");
           this.tabs.setActive(1);
           this.userRole.name = x.name ;
         }
         else {
-          this.toast("Попробуйте снова...", "");
+          this.toast(this.translateService.get().tryAgain, "");
         }
         this.role();
         this.showProgressBar = false;

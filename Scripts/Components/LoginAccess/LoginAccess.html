@@ -24,10 +24,10 @@
     </md-input-container>
 
     <md-input-container>
-        <label>Пароль</label>
+        <label>{{l.get().password}}</label>
         <input ng-model="ctrl.password" required md-minlength="6" type="password">
     </md-input-container>
 
-    <md-button ng-click="ctrl.enter()" class="md-raised">Вход</md-button>
+    <md-button ng-click="ctrl.enter()" class="md-raised">{{l.get().login}}</md-button>
 
 </form>

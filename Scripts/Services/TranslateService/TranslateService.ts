@@ -33,6 +33,12 @@ namespace Termin.Services {
         
         wasSave: string;
         wasCreate: string;
+        password: string;
+        login: string;
+        tryAgain: string;
+        welcome: string;
+        
+        authorization: string;
     }
 
     export class TranslateService {
@@ -67,7 +73,7 @@ namespace Termin.Services {
                 return this.ru;
         }
 
-        private ru = {
+        private ru: IDictionary = {
             title: "Система - Термин",
             exit: "Выход",
             calendar: "Календарь",
@@ -92,10 +98,15 @@ namespace Termin.Services {
             administrator: "Администратор",
             user: "Пользователь",
             wasSave: "Сохранено",
-            wasCreate: "Создано"
+            wasCreate: "Создано",
+            password: "Пароль",
+            login: "Вход",
+            tryAgain: "Попробуйте снова...",
+            welcome: "рады Вас видеть!",
+            authorization: "Авторизация"
         };
 
-        private en = {
+        private en: IDictionary = {
             title: "System - Term",
             exit: "Exit",
             calendar: "Calendar",
@@ -120,7 +131,12 @@ namespace Termin.Services {
             administrator: "Administrator",
             user: "User",
             wasSave: "Saved successfully",
-            wasCreate: "Created successfully"
+            wasCreate: "Created successfully",
+            password: "Password",
+            login: "Login",
+            tryAgain: "Try again...",
+            welcome: "welcom!!!",
+            authorization: "Authorization"
         }
     }
 

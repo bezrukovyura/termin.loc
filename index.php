@@ -59,6 +59,16 @@ body {
   position: relative; 
   margin: 0; 
 }
+.langSelect, .langSelect * {
+    color: #d2d2d2;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+
+.langSelect {
+    margin: 0 10px 0 0;
+}
 @media(max-width: 600px) {
   .md-toolbar-tools .md-truncate {
       display: none;
@@ -78,7 +88,7 @@ body {
       <div class="md-toolbar-tools">
         <h2 md-truncate flex>{{l.get().title}}</h2>
         
-        <md-select ng-change="l.update()" ng-model="l.language" placeholder="en" style="margin:3px 0 0 15px">
+        <md-select ng-change="l.update()" ng-model="l.language" placeholder="en" class="langSelect">
           <md-option ng-value="x" ng-repeat="x in l.listLanguages">{{x}}</md-option>
         </md-select>
 
@@ -90,7 +100,7 @@ body {
 
     <md-content>
       <md-tabs md-selected="tab.active" class="md-dynamic-height">
-        <md-tab label="Авторизация" ng-if="userRole.level==-1">
+        <md-tab label="{{l.get().authorization}}" ng-if="userRole.level==-1">
           <login-access-component show-progress-bar="myCtrl.showProgressBar" user-role="userRole" />
         </md-tab>
         <md-tab label="{{l.get().calendar}}" ng-if="userRole.level>-1">
