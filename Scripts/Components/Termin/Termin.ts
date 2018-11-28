@@ -2,20 +2,22 @@ namespace Termin.Components {
 
     export class TerminController implements ng.IController {
 
-        static $inject: string[] = ["$scope", "StorageService", "TabService", "AccountService"];
+        static $inject: string[] = ["$scope", "StorageService", "TabService", "AccountService", "TranslateService"];
 
         constructor(
             private $scope: ng.IScope, 
             private storageService: Services.StorageService, 
             private tabService: Services.TabService,
-            private accountService: Services.AccountService
+            private accountService: Services.AccountService,
+            public translateService :Termin.Services.TranslateService
             ) { }
 
         public showProgressBar: boolean = false;
 
 
         $onInit?(): void {
-            
+            debugger
+            this.$scope.l = this.translateService;
             this.$scope.tab = this.tabService;
 
             this.$scope.userRole = {

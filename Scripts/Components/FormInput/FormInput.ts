@@ -2,12 +2,19 @@
 
   class FormInputController implements ng.IController {
 
-    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "$mdToast"];
+    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "$mdToast", "TranslateService"];
 
-    constructor(private $scope: any, private storageService: Services.StorageService, private ConverterService:  Services.ConverterService, private $mdToast: any) { }
+    constructor(
+      private $scope: any, 
+      private storageService: Services.StorageService, 
+      private ConverterService:  Services.ConverterService, 
+      private $mdToast: any,
+      public translateService :Termin.Services.TranslateService
+      ) { }
 
     $onInit?(): void {
 
+      this.$scope.l = this.translateService;
 
       debugger
 

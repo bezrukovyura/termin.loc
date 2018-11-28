@@ -77,7 +77,7 @@
 
     <div class="bhp-half" layout="column">
         <div>
-            <label ng-hide="ctrl.unit.visitDateNumber">Дата "Термина"</label>
+            <label ng-hide="ctrl.unit.visitDateNumber">{{l.get().terminDate}}</label>
             <label class="visitDateNumber" if="ctrl.unit.visitDateNumber">{{ctrl.unit.visitDateNumber}}</label>
             <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
                 ng-model="ctrl.unit.date"></md-datepicker>
@@ -106,29 +106,29 @@
         </div>
 
         <md-input-container>
-            <label>Фамилия</label>
+            <label>{{l.get().secondName}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.fam">
         </md-input-container>
 
         <md-input-container>
-            <label>Имя</label>
+            <label>{{l.get().firstName}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.name">
         </md-input-container>
 
 
         <div>
-            <label>Дата рождения</label>
+            <label>{{l.get().bethday}}</label>
             <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
                 ng-model="ctrl.unit.birthday" />
         </div>
 
         <md-input-container>
-            <label>Телефон 1</label>
+            <label>{{l.get().phone1}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.phone1">
         </md-input-container>
 
         <md-input-container>
-            <label>Телефон 2</label>
+            <label>{{l.get().phone2}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.phone2">
         </md-input-container>
 
@@ -136,36 +136,36 @@
     <div class="bhp-half" layout="column">
 
         <md-input-container layout-align="center">
-            <label>Регион</label>
+            <label>{{l.get().region}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.region">
         </md-input-container>
 
 
         <md-input-container>
-            <label>Страховка</label>
+            <label>{{l.get().insurance}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.insurance">
         </md-input-container>
 
 
         <md-input-container>
-            <label>Zuweiser</label>
+            <label>{{l.get().zuweiser}}</label>
             <input ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.zuweiser">
         </md-input-container>
 
         <md-input-container>
-            <label>Коментарий</label>
+            <label>{{l.get().comment}}</label>
             <textarea ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.comments"></textarea>
         </md-input-container>
 
     </div>
 
     <div ng-if="!ctrl.unit.id" ng-hide="ctrl.unit.visitDateNumber && !ctrl.roleAdmin">
-        <md-button ng-click="ctrl.save()" class="md-raised colorGreen">Добавить</md-button>
-        <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">Очистить</md-button>
+        <md-button ng-click="ctrl.save()" class="md-raised colorGreen">{{l.get().add}}</md-button>
+        <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">{{l.get().clear}}</md-button>
     </div>
     <div ng-if="ctrl.unit.id" ng-hide="ctrl.unit.visitDateNumber && !ctrl.roleAdmin">
-        <md-button ng-click="ctrl.editSave()" class="md-raised colorGreen">Внести изменения</md-button>
-        <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">Отменить</md-button>
-        <md-button ng-click="ctrl.delete()" class="md-raised colorRed">Удалить</md-button>
+        <md-button ng-click="ctrl.editSave()" class="md-raised colorGreen">{{l.get().change}}</md-button>
+        <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">{{l.get().cancel}}</md-button>
+        <md-button ng-click="ctrl.delete()" class="md-raised colorRed">{{l.get().del}}</md-button>
     </div>
 </form>

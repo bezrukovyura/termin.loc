@@ -7,7 +7,8 @@
     static $inject: string[] = [
       "$scope",
       "AccountService",
-      "$mdToast"
+      "$mdToast",
+      "TranslateService"
     ];
 
     public allUsers: User[];
@@ -17,6 +18,7 @@
       public $scope: ng.IScope,
       private accounts: Services.AccountService,
       private $mdToast: any,
+      public translateService :Termin.Services.TranslateService
     ) {
 
       this.update();
@@ -36,7 +38,7 @@
 
         this.accounts.update(user).then(x => {
           if(x == "ok"){
-            this.toast("Сохранено", "");
+            this.toast(this.translateService.get().wasSave, "");
             this.update();
           }
           else
@@ -47,7 +49,7 @@
         user.password = md5(user.password);
         this.accounts.create(user).then(x => {
           if(x){
-            this.toast("Создано", "");
+            this.toast(this.translateService.get().wasCreate, "");
             this.update();
           }
           else
@@ -89,8 +91,7 @@
 
 
     $onInit?(): void {
-
-
+      this.$scope.l = this.translateService;
     }
 
 

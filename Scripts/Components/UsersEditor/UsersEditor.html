@@ -34,15 +34,15 @@
             <input type="text" ng-model="item.name">
             <input type="text" ng-model="item.email">
             <select ng-model="item.role">
-                <option value="1">Администратор</option>
-                <option value="0">Пользователь</option>
+                <option value="1">{{l.get().administrator}}</option>
+                <option value="0">{{l.get().user}}</option>
             </select>
             <input type="password" ng-model="item.password">
-            <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">Сохранить</md-button>
-            <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">Удалить</md-button>
+            <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">{{l.get().save}}</md-button>
+            <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">{{l.get().del}}</md-button>
         </div>
     </div>
 
-    <md-button ng-click="ctrl.add()" class="md-raised colorYellow">Добавить</md-button>
+    <md-button ng-click="ctrl.add()" class="md-raised colorYellow">{{l.get().add}}</md-button>
 
 </div>

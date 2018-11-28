@@ -1,8 +1,4 @@
-﻿<?php
-  //session_start();
-?>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 
@@ -26,6 +22,7 @@
   <script src="./Scripts/Services/StorageService.js"></script>
   <script src="./Scripts/Services/ConverterService.js"></script>
   <script src="./Scripts/Services/TabService.js"></script>
+  <script src="./Scripts/Services/TranslateService/TranslateService.js"></script>
 
   <script src="./Scripts/Components/FormInput/FormInput.js"></script>
   <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
@@ -79,10 +76,14 @@ body {
 
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2 md-truncate flex>Система - Термин</h2>
+        <h2 md-truncate flex>{{l.get().title}}</h2>
+        
+        <md-select ng-change="l.update()" ng-model="l.language" placeholder="en" style="margin:3px 0 0 15px">
+          <md-option ng-value="x" ng-repeat="x in l.listLanguages">{{x}}</md-option>
+        </md-select>
 
         <md-button ng-click="exit()" ng-if="userRole.name">
-          {{userRole.name}} - Выход
+          {{userRole.name}} - {{l.get().exit}}
         </md-button>
       </div>
     </md-toolbar>
@@ -92,13 +93,13 @@ body {
         <md-tab label="Авторизация" ng-if="userRole.level==-1">
           <login-access-component show-progress-bar="myCtrl.showProgressBar" user-role="userRole" />
         </md-tab>
-        <md-tab label="Календарь" ng-if="userRole.level>-1">
+        <md-tab label="{{l.get().calendar}}" ng-if="userRole.level>-1">
           <calendar-component role="userRole.level" show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
-        <md-tab label="Добавление" ng-if="userRole.level>-1">
+        <md-tab label="{{l.get().additional}}" ng-if="userRole.level>-1">
           <form-input-component role="userRole.level" show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
-        <md-tab label="Пользователи" ng-if="userRole.level>0"><users-editor-component /></md-tab>
+        <md-tab label="{{l.get().users}}" ng-if="userRole.level>0"><users-editor-component /></md-tab>
       </md-tabs>
     </md-content>
 
