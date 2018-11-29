@@ -61,7 +61,7 @@
 
     public save() {
       this.showProgressBar = true;
-      this.unit.date = this.ConverterService.date(<any>this.unit.date);
+      this.unit.date = this.ConverterService.date(<any>this.unit.date ? <any>this.unit.date : new Date());
       this.storageService.save(this.unit).then(x => {
         if (x) {
           this.toast('Запись "' + this.unit.fam + '" сохранена!', "toastOk");
