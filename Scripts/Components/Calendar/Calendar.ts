@@ -211,43 +211,84 @@ namespace Termin.Components {
     /** По умолчанию показываем один день */
     selectCountDays: number = 1;
 
+
+    private offsetHeightThreeWeek(): number{
+      if(!this.is30Days())
+        return undefined;
+      return (<any>document.querySelector('.oneDay.day0')).offsetHeight + (<any>document.querySelector('.oneDay.day7')).offsetHeight + (<any>document.querySelector('.oneDay.day14')).offsetHeight;
+    }
+ 
+    private is30Days(): boolean{
+      return this.selectCountDays == 30 ;
+    }
+
+    private setPrintStyle(isPrint: boolean){
+      if(isPrint){
+        
+        let temp = document.createElement('div');
+        temp.id = "printStyle"
+        temp.innerHTML = '<style id="printStyle">md-toolbar._md,md-tabs-wrapper,.nowDate {display: none}</style>';
+        document.getElementById('toPrint').appendChild(temp.firstChild);
+
+        document.getElementById('toPrint').style.width = this.is30Days ? "1500px" : "1200px";
+      }
+      else{
+        document.getElementById('printStyle').outerHTML = "<font></font>";
+        document.getElementById('toPrint').style.width = "";
+      }
+    }
+
     openPdf() {
+      debugger
+      this.setPrintStyle(true);
 
-      let viewport = document.querySelector("meta[name=viewport]");
-      if(this.selectCountDays == 30)
-        viewport.setAttribute('content', 'width=2023, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
-      else
-        viewport.setAttribute('content', 'width=1300, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
-
-
-      html2canvas(document.getElementById('toPrint'), {height: (<any>document.querySelector('.oneDay')).offsetHeight * 3 + 30})
+      html2canvas(document.getElementById('toPrint'), {height: this.offsetHeightThreeWeek()})
       .then((canvas: any) => {
+        debugger
         var page1 = canvas.toDataURL();
-//        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
-        html2canvas(document.getElementById('toPrint'), {y: (<any>document.querySelector('.oneDay')).offsetHeight * 3 + 150})
+        html2canvas(document.getElementById('toPrint'), {y: 30 + this.offsetHeightThreeWeek()})
         .then((canvas: any) => {
+          debugger
           var page2 = canvas.toDataURL();
+          var docDefinition;
+          if(this.is30Days()  )
+            docDefinition = {
+              info: {
+                title: 'Termin calendar',
+              },
+              content: [{
+                image: page1,
+                width: 500,
+                pages: 2,
+                startPosition: {
+                  pageNumber: 1
+                }
+              },
+              {
+                image: page2,
+                width: 500,
+                startPosition: {
+                  pageNumber: 2
+                }
+              }]
+            };
+          else
+            docDefinition = {
+              info: {
+                title: 'Termin calendar',
+              },
+              content: [{
+                image: page1,
+                width: 500,
+                pages: 2,
+                startPosition: {
+                  pageNumber: 1
+                }
+              }]
+            };
 
-          var docDefinition = {
-            content: [{
-              image: page1,
-              width: 500,
-              pages: 2,
-              startPosition: {
-                pageNumber: 1
-              }
-            },
-            {
-              image: page2,
-              width: 500,
-              startPosition: {
-                pageNumber: 2
-              }
-            }]
-          };
           pdfMake.createPdf(docDefinition).open();
-  
-          viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+          this.setPrintStyle(false);
         });
       
       });

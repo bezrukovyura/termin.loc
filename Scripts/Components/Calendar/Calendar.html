@@ -214,15 +214,15 @@
 
     <div id="toPrint">
 
-        <div ng-repeat="Day in ctrl.allDays">
+        <div ng-repeat="Day in ctrl.allDays track by $index">
             <div class="ClearFix" ng-class="{display:!($index % 7) && $index != 0}"></div>
 
-            <div class="oneDay">
+            <div class="oneDay day{{$index}}">
 
                 <div class="dayDate">{{Day.date}}</div>
 
                 <div class="halfDay half">
-                    <div class="item first" ng-repeat="item in Day.first" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
+                    <div class="item first" ng-repeat="item in Day.first track by $index" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
                         <div class="pointer">
                             <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}}</div>
@@ -235,7 +235,7 @@
                     </div>
                 </div>
                 <div class="halfDay half">
-                    <div class="item second" ng-repeat="item in Day.second" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
+                    <div class="item second" ng-repeat="item in Day.second track by $index" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">
                         <div class="pointer">
                             <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}}</div>
