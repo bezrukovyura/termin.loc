@@ -287,7 +287,7 @@ namespace Termin.Components {
               }]
             };
 
-          pdfMake.createPdf(docDefinition).open();
+          pdfMake.createPdf(docDefinition).download();
           this.setPrintStyle(false);
         });
       
