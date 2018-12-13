@@ -25,6 +25,23 @@
       return json_encode($emparray);
      }
 
+     public static function gettermslastchecked()
+     {
+      $connection = mysqli_connect("localhost", DB::$name, DB::$password, DB::$login) or die("Error " . mysqli_error($connection));
+      $sql = "SELECT * FROM `termins` WHERE `visitDateNumber` LIKE '%/%' ORDER BY id DESC LIMIT 1";
+      $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+
+      $emparray = array();
+      while($row =mysqli_fetch_assoc($result))
+      {
+          $emparray[] = $row;
+      }
+      
+      mysqli_close($connection);
+
+      return json_encode($emparray);
+     }
+
      public static function setterms($jsonArray)
      {
 

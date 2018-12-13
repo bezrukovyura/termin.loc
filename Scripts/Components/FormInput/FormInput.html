@@ -53,6 +53,25 @@
         font-weight: 600;
     }
 
+    form-input-component .selectBethday input {
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        width: 55px;
+        margin: 0px 5px 0 0;
+        padding: 0 0 0 3px;
+        border-left: 1px solid #cccccc;
+        background: #fafafa;
+    }
+
+    form-input-component .selectBethday input::placeholder {
+        color: #ccc;
+        font-size: 11px;
+    }
+
+    form-input-component .error {
+        background: #f9c6c6 !important;
+    }
+
     @media (max-width: 600px) {
         form-input-component .bhp-half {
             width: 100%;
@@ -79,8 +98,7 @@
         <div>
             <label ng-hide="ctrl.unit.visitDateNumber">{{l.get().terminDate}}</label>
             <label class="visitDateNumber" if="ctrl.unit.visitDateNumber">{{ctrl.unit.visitDateNumber}}</label>
-            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
-                ng-model="ctrl.unit.date"></md-datepicker>
+            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder ng-model="ctrl.unit.date"></md-datepicker>
 
             <select ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" ng-model="ctrl.unit.hour">
                 <option value="06">06</option>
@@ -117,9 +135,13 @@
 
 
         <div>
-            <label>{{l.get().bethday}}</label>
-            <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder
-                ng-model="ctrl.unit.birthday" />
+            <label style="color:#a7a7a7;">{{l.get().bethday}}</label>
+            <!-- <md-datepicker ng-disabled="ctrl.unit.visitDateNumber && !ctrl.roleAdmin" md-open-on-focus md-placeholder ng-model="ctrl.unit.birthday" /> -->
+            <div class="selectBethday">
+                <input ng-model="ctrl.unit.birthday.year" placeholder="1901" ng-class='{error: ctrl.onBirthdayChangeError()}' />
+                <input ng-model="ctrl.unit.birthday.mounth" placeholder="01" ng-class='{error: ctrl.onBirthdayChangeError()}' />
+                <input ng-model="ctrl.unit.birthday.day" placeholder="31" ng-class='{error: ctrl.onBirthdayChangeError()}' />
+            </div>
         </div>
 
         <md-input-container>
@@ -160,11 +182,11 @@
     </div>
 
     <div ng-if="!ctrl.unit.id" ng-hide="ctrl.unit.visitDateNumber && !ctrl.roleAdmin">
-        <md-button ng-click="ctrl.save()" class="md-raised colorGreen">{{l.get().add}}</md-button>
+        <md-button ng-if="ctrl.unit.hour && ctrl.unit.minute && !ctrl.onBirthdayChangeError()" ng-click="ctrl.save()" class="md-raised colorGreen">{{l.get().add}}</md-button>
         <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">{{l.get().clear}}</md-button>
     </div>
     <div ng-if="ctrl.unit.id" ng-hide="ctrl.unit.visitDateNumber && !ctrl.roleAdmin">
-        <md-button ng-click="ctrl.editSave()" class="md-raised colorGreen">{{l.get().change}}</md-button>
+        <md-button ng-if="ctrl.unit.hour && ctrl.unit.minute && !ctrl.onBirthdayChangeError()" ng-click="ctrl.editSave()" class="md-raised colorGreen">{{l.get().change}}</md-button>
         <md-button ng-click="ctrl.clear()" class="md-raised colorYellow">{{l.get().cancel}}</md-button>
         <md-button ng-click="ctrl.delete()" class="md-raised colorRed">{{l.get().del}}</md-button>
     </div>

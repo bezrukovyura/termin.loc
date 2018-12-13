@@ -6,7 +6,11 @@ namespace Termin {
         public minute?: string;
         public fam?: string;
         public name?: string;
-        public birthday?: string;
+        public birthday?: {
+            year?: number,
+            mounth?: number,
+            day?: number,
+        };
         public phone1?: string;
         public phone2?: string;
         public region?: string;

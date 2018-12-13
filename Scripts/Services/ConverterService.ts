@@ -20,5 +20,30 @@ namespace Termin.Services {
                 return x + "";
         }
 
+        dateBirthdayStringify(unit: Unit): Unit {
+            let temp_unit = _.cloneDeep(unit);
+
+            if( unit.birthday.year && unit.birthday.mounth && unit.birthday.day)
+                (<any>temp_unit.birthday) = unit.birthday.year + "_" + unit.birthday.mounth + "_" + unit.birthday.day;
+
+            return temp_unit;
+        }
+        
+        dateBirthdayParse(unit: Unit): Unit {
+            let temp_unit = _.cloneDeep(unit);
+
+            if( unit.birthday && (<string>unit.birthday).length > 0){
+                let arr = (<string>unit.birthday).split("_");
+                temp_unit.birthday = {
+                    year: +arr[0],
+                    mounth: +arr[1],
+                    day: +arr[2]
+                }
+            }
+                
+
+            return temp_unit;
+        }
+
     }
 }

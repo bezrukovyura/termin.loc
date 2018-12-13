@@ -33,7 +33,7 @@
         x=>{
           if (x && x.role !== undefined && x.role > -1) {
             this.toast(x.name + ", " + this.translateService.get().welcome, "");
-            this.tabs.setActive(1);
+            this.tabs.setActive(0);
             this.userRole.name = x.name ;
             this.role();
             this.showProgressBar = false;
@@ -48,7 +48,7 @@
 
         if (x && x.role !== undefined && x.role > -1) {
           this.toast(x.name + ", " + this.translateService.get().welcome, "");
-          this.tabs.setActive(1);
+          this.tabs.setActive(0);
           this.userRole.name = x.name ;
         }
         else {

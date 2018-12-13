@@ -128,6 +128,9 @@ namespace Termin.Components {
       if (!unit.id)
         return;
       this.terminReceptionObject = unit;
+
+      this.setVisitDateNumber().then(x => this.terminReception = x);
+
       this.$mdDialog.show({
         contentElement: '#mdStaticDialog',
         parent: angular.element(document.body)
@@ -143,15 +146,25 @@ namespace Termin.Components {
     public terminReceptionObject: Unit;
 
     public terminReceptionApply() {
-      this.terminReceptionObject.visitDateNumber = this.terminReception;
-      this.storageService.update(this.terminReceptionObject).then(x => {
-        if (x) {
-          this.update();
-          this.finalCommitDialogClose();
+      //проверка
+      this.isUniqVisitDateNumber().then(z => {
+        if (!z) {
+          alert("error save. not uniq or not correct");
+          this.setVisitDateNumber().then(x => this.terminReception = x);
+          return
         }
-        else
-          alert("Не удалось сохранить");
+        this.terminReceptionObject.visitDateNumber = this.terminReception;
+        this.storageService.update(this.terminReceptionObject).then(x => {
+          if (x) {
+            this.update();
+            this.finalCommitDialogClose();
+          }
+          else
+            alert("Не удалось сохранить");
+        });
       });
+
+
     }
 
     /** Отрисовка */
@@ -212,19 +225,19 @@ namespace Termin.Components {
     selectCountDays: number = 1;
 
 
-    private offsetHeightThreeWeek(): number{
-      if(!this.is30Days())
+    private offsetHeightThreeWeek(): number {
+      if (!this.is30Days())
         return undefined;
       return (<any>document.querySelector('.oneDay.day0')).offsetHeight + (<any>document.querySelector('.oneDay.day7')).offsetHeight + (<any>document.querySelector('.oneDay.day14')).offsetHeight;
     }
- 
-    private is30Days(): boolean{
-      return this.selectCountDays == 30 ;
+
+    private is30Days(): boolean {
+      return this.selectCountDays == 30;
     }
 
-    private setPrintStyle(isPrint: boolean){
-      if(isPrint){
-        
+    private setPrintStyle(isPrint: boolean) {
+      if (isPrint) {
+
         let temp = document.createElement('div');
         temp.id = "printStyle"
         temp.innerHTML = '<style id="printStyle">md-toolbar._md,md-tabs-wrapper,.nowDate {display: none}</style>';
@@ -232,7 +245,7 @@ namespace Termin.Components {
 
         document.getElementById('toPrint').style.width = this.is30Days ? "1500px" : "1200px";
       }
-      else{
+      else {
         document.getElementById('printStyle').outerHTML = "<font></font>";
         document.getElementById('toPrint').style.width = "";
       }
@@ -242,60 +255,84 @@ namespace Termin.Components {
       debugger
       this.setPrintStyle(true);
 
-      html2canvas(document.getElementById('toPrint'), {height: this.offsetHeightThreeWeek()})
-      .then((canvas: any) => {
-        debugger
-        var page1 = canvas.toDataURL();
-        html2canvas(document.getElementById('toPrint'), {y: 30 + this.offsetHeightThreeWeek()})
+      html2canvas(document.getElementById('toPrint'), { height: this.offsetHeightThreeWeek() })
         .then((canvas: any) => {
           debugger
-          var page2 = canvas.toDataURL();
-          var docDefinition;
-          if(this.is30Days()  )
-            docDefinition = {
-              info: {
-                title: 'Termin calendar',
-              },
-              content: [{
-                image: page1,
-                width: 500,
-                pages: 2,
-                startPosition: {
-                  pageNumber: 1
-                }
-              },
-              {
-                image: page2,
-                width: 500,
-                startPosition: {
-                  pageNumber: 2
-                }
-              }]
-            };
-          else
-            docDefinition = {
-              info: {
-                title: 'Termin calendar',
-              },
-              content: [{
-                image: page1,
-                width: 500,
-                pages: 2,
-                startPosition: {
-                  pageNumber: 1
-                }
-              }]
-            };
+          var page1 = canvas.toDataURL();
+          html2canvas(document.getElementById('toPrint'), { y: 30 + this.offsetHeightThreeWeek() })
+            .then((canvas: any) => {
+              debugger
+              var page2 = canvas.toDataURL();
+              var docDefinition;
+              if (this.is30Days())
+                docDefinition = {
+                  info: {
+                    title: 'Termin calendar',
+                  },
+                  content: [{
+                    image: page1,
+                    width: 500,
+                    pages: 2,
+                    startPosition: {
+                      pageNumber: 1
+                    }
+                  },
+                  {
+                    image: page2,
+                    width: 500,
+                    startPosition: {
+                      pageNumber: 2
+                    }
+                  }]
+                };
+              else
+                docDefinition = {
+                  info: {
+                    title: 'Termin calendar',
+                  },
+                  content: [{
+                    image: page1,
+                    width: 500,
+                    pages: 2,
+                    startPosition: {
+                      pageNumber: 1
+                    }
+                  }]
+                };
 
-          pdfMake.createPdf(docDefinition).download();
-          this.setPrintStyle(false);
+              pdfMake.createPdf(docDefinition).download();
+              this.setPrintStyle(false);
+            });
+
         });
-      
+
+
+
+
+    }
+
+    setVisitDateNumber(): ng.IPromise<string> {
+      return this.storageService.getTermsLastChecked().then(x => {
+        let arr = x.visitDateNumber.split("/");
+        let currentId = +arr[0];
+        let year = "" + new Date().getFullYear();
+        let currentYear = year[2] + year[3];
+        return (currentId + 1) + "/" + currentYear;
       });
+    }
 
+    isUniqVisitDateNumber(): ng.IPromise<boolean> {
+      return this.setVisitDateNumber().then(x => {
+        let arr = x.split("/");
+        let currentId = +arr[0];
+        let year = "" + new Date().getFullYear();
+        let currentYear = year[2] + year[3];
 
-
-
+        let arr1 = this.terminReception.split("/");
+        let currentIdWritten = +arr1[0];
+        let currentYearWritten = arr1[1];
+        return currentIdWritten > currentId && currentYearWritten == currentYear;
+      });
     }
 
   }

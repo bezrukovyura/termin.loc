@@ -39,6 +39,7 @@ namespace Termin.Services {
         welcome: string;
         
         authorization: string;
+        reserviert: string;
     }
 
     export class TranslateService {
@@ -103,7 +104,8 @@ namespace Termin.Services {
             login: "Вход",
             tryAgain: "Попробуйте снова...",
             welcome: "рады Вас видеть!",
-            authorization: "Авторизация"
+            authorization: "Авторизация",
+            reserviert: "Забронированно"
         };
 
         private en: IDictionary = {
@@ -136,7 +138,8 @@ namespace Termin.Services {
             login: "Login",
             tryAgain: "Try again...",
             welcome: "welcom!!!",
-            authorization: "Authorization"
+            authorization: "Authorization",
+            reserviert: "Reserviert"
         }
     }
 
