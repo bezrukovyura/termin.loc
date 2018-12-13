@@ -324,7 +324,7 @@ namespace Termin.Components {
     isUniqVisitDateNumber(): ng.IPromise<boolean> {
       return this.setVisitDateNumber().then(x => {
         let arr = x.split("/");
-        let currentId = +arr[0];
+        let currentId = +arr[0] - 1;
         let year = "" + new Date().getFullYear();
         let currentYear = year[2] + year[3];
 
