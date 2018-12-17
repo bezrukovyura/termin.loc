@@ -20,6 +20,12 @@ namespace Termin.Services {
                 return x + "";
         }
 
+        /** перевод строки в дату */
+        stringToDate(dat: string): string {
+            let arr = dat.split("-");
+            return arr.map(y=> this.time(+y)).join("-") + "T00:00:00";
+        }
+
         dateBirthdayStringify(unit: Unit): Unit {
             let temp_unit = _.cloneDeep(unit);
 

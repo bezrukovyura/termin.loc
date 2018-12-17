@@ -1,14 +1,11 @@
 let gulp = require('gulp');
-
 let tsc = require('gulp-typescript');
 
-let less = require('gulp-less');
-let LessAutoprefix = require('less-plugin-autoprefix');
-let autoprefix = new LessAutoprefix({ browsers: ['last 5 versions'] });
+// let less = require('gulp-less');
+// let LessAutoprefix = require('less-plugin-autoprefix');
+// let autoprefix = new LessAutoprefix({ browsers: ['last 5 versions'] });
 
 let concat = require('gulp-concat');
-
-let gulpCopy = require('gulp-copy');
 let del = require('del');
 
 
@@ -25,26 +22,25 @@ gulp.task('typescript', function () {
     .pipe(gulp.dest('./Scripts'));
 });
 
-// gulp.task('less', function () {
-//   return gulp.src(["./Styles/**/*.less", './Scripts/**/*.less'])
-//     .pipe(less({
-//       plugins: [autoprefix]
-//     }))
-//     .pipe(gulp.dest('./Styles'));
-// });
+// // gulp.task('less', function () {
+// //   return gulp.src(["./Styles/**/*.less", './Scripts/**/*.less'])
+// //     .pipe(less({
+// //       plugins: [autoprefix]
+// //     }))
+// //     .pipe(gulp.dest('./Styles'));
+// // });
 
-gulp.task('watcher', function () {
-  gulp.watch("./Scripts/**/*.less", ['less']);
-  gulp.watch('./Styles/**/*.less', ['less']);
-  gulp.watch('./Scripts/**/*.ts', ['typescript']);
-});
+// // gulp.task('watcher', function () {
+// //   gulp.watch("./Scripts/**/*.less", ['less']);
+// //   gulp.watch('./Styles/**/*.less', ['less']);
+// //   gulp.watch('./Scripts/**/*.ts', ['typescript']);
+// // });
 
-gulp.task('default', ['typescript', 'less']);
-
-
+// //gulp.task('default', ['typescript', 'less']);
 
 
-gulp.task('deploy', ['copyHtml', 'copyJs', 'copyPhp', 'copyIndex', 'copyImg', 'copyCss']);
+
+
 
 gulp.task('copyJs', function () {
   return gulp.src('./Scripts/**/*.js')
@@ -75,12 +71,6 @@ gulp.task('copyIndex', function () {
   return gulp.src('./index.php')
     .pipe(gulp.dest('./deploy'));
 });
-
-
-
-
-
-gulp.task('vendors', ['clean', 'vendorsJs', 'vendorsCss']);
 
 gulp.task('vendorsJs', function () {
   return gulp.src([
@@ -113,3 +103,7 @@ gulp.task('clean', function () {
   return del('./deploy/**/*.*', { force: true });
 });
 
+
+gulp.task('deploy',  gulp.series('copyHtml', 'copyJs', 'copyPhp', 'copyIndex', 'copyImg', 'copyCss'));
+
+gulp.task('vendors', gulp.series('clean', 'vendorsJs', 'vendorsCss'));

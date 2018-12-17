@@ -167,11 +167,14 @@ namespace Termin.Components {
 
     }
 
+
+
     /** Отрисовка */
     private init(date: string) {
       debugger
 
 
+      date = this.converter.stringToDate(date);
       this.allDays = new Array(this.selectCountDays);
 
       for (let i = 0; i < this.allDays.length; i++) {
@@ -182,10 +185,6 @@ namespace Termin.Components {
           this.allDays[i] = this.render(stringDate, x);
         });
       }
-
-
-      //this.render(date);
-
 
     }
 
