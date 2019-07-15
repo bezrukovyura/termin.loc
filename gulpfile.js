@@ -107,3 +107,5 @@ gulp.task('clean', function () {
 gulp.task('deploy',  gulp.series('copyHtml', 'copyJs', 'copyPhp', 'copyIndex', 'copyImg', 'copyCss'));
 
 gulp.task('vendors', gulp.series('clean', 'vendorsJs', 'vendorsCss'));
+
+gulp.task('default', gulp.series('typescript', 'vendors', 'deploy'));

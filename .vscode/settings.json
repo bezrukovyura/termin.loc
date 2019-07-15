@@ -2,9 +2,9 @@
     "git.ignoreMissingGitWarning": true,
     "explorer.confirmDragAndDrop": false,
     "files.exclude": {
-        "**/*.js": true,
+        // "**/*.js": true,
         "**/*.css": true,
-        "**/*.js.map": true,
+        // "**/*.js.map": true,
         ".gitattributes": true,
         ".gitignore": true,
         "package-lock.json": true,
