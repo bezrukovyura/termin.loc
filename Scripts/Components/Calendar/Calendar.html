@@ -223,10 +223,8 @@
 
         <div ng-repeat="Day in ctrl.allDays track by $index">
             <div class="ClearFix" ng-class="{display:!($index % 7) && $index != 0}"></div>
-
             <div class="oneDay day{{$index}}">
-
-                <div class="dayDate">{{Day.date}}</div>
+                <div class="dayDate">{{Day.date}} <span class="dayWarning">{{Day.warning}}</span></div>
 
                 <div class="halfDay half">
                     <div class="item first" ng-repeat="item in Day.first track by $index" ng-class="{'disable': item.visitDateNumber && !ctrl.roleAdmin}">

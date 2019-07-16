@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+<?
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+include_once "calendar.php";
+?>
+<!DOCTYPE html>
 
 <html>
 
@@ -28,7 +33,11 @@
   <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
   <script src="./Scripts/Components/Calendar/Calendar.js"></script>
   <script src="./Scripts/Components/UsersEditor/UsersEditor.js"></script>
+  <script src="./Scripts/Components/Dayoff/Dayoff.js"></script>
   <script src="./Scripts/app.js"></script>
+  <script>let dates = <? echo (Calendar::get() ? Calendar::get() : '[]'); ?>;</script>
+  <script src="./Scripts/jquery.js"></script>
+  <script src="./Scripts/jquery-app.js"></script>
 
 </head>
 
@@ -68,6 +77,41 @@ body {
 
 .langSelect {
     margin: 0 10px 0 0;
+}
+.row {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+.calendar-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.month {
+  width: calc(100% / 3);
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+.month-table td {
+  cursor: pointer;
+}
+.month-table td:nth-child(6), .month-table td:nth-child(7) {
+  color: red;
+}
+.date--selected:not(.md-calendar-date), .md-calendar-date.date--selected span {
+  background: green;
+  color: white;
+}
+.md-calendar-date:nth-last-child(-n+2) span {
+  background: red;
+  color: white;
+}
+
+@media(max-width: 950px) {
+  .month {width: 50%;}
+}
+@media(max-width: 767px) {
+  .month {width: 100%;}
 }
 @media(max-width: 600px) {
   .md-toolbar-tools .md-truncate {
@@ -110,6 +154,24 @@ body {
           <form-input-component role="userRole.level" show-progress-bar="myCtrl.showProgressBar" />
         </md-tab>
         <md-tab label="{{l.get().users}}" ng-if="userRole.level>0"><users-editor-component /></md-tab>
+        <md-tab label="{{l.get().dayoff}}" ng-if="userRole.level>0">
+          <div class="row">
+            <div class="calendar-row">
+              <? for ($i = 1; $i <=12; $i++): ?>
+                <div class="month">
+                  <div class="month-title"><? echo Calendar::monthName($i); ?></div>
+                  <div class="month-table"><? echo Calendar::month2table($i, Calendar::year2array(date('Y'))); ?></div>
+                </div>
+              <? endfor; ?>            
+            </div>
+            <div class="save-row">
+              <form class="dates-fomr">
+                <input type="hidden" name="dates" id="dates">
+                <input id="save-dates" type="submit" value="{{l.get().save}}">
+              </form>
+            </div>
+          </div>
+        </md-tab>
       </md-tabs>
     </md-content>
 
