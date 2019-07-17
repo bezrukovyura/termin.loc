@@ -3,30 +3,30 @@
   "name": "termin",
   "private": true,
   "dependencies": {
-    "js-md5": "^0.7.3",
-    "lodash": "latest",
-    "moment": "latest",
-    "angular-material": "1.1.8",
     "@types/angular-material": "1.1.60",
+    "@types/jquery": "^3.3.30",
     "angular": "1.6.9",
     "angular-animate": "1.6.9",
     "angular-aria": "1.6.9",
+    "angular-material": "1.1.8",
     "angular-messages": "1.6.9",
-    "pdfmake": "0.1.39",
-    "html2canvas": "1.0.0-alpha.12"
+    "html2canvas": "1.0.0-alpha.12",
+    "js-md5": "^0.7.3",
+    "lodash": "latest",
+    "moment": "latest",
+    "pdfmake": "0.1.39"
   },
   "devDependencies": {
+    "@types/lodash": "latest",
+    "del": "latest",
     "gulp": "latest",
-    "typescript": "latest",
-    "less": "latest",
-    "gulp-typescript": "latest",
-    "gulp-less": "latest",
-    "less-plugin-autoprefix": "latest",
     "gulp-concat": "latest",
     "gulp-copy": "latest",
-    "del": "latest",
-    "@types/jquery": "3.3.22",
-    "@types/lodash": "latest"
+    "gulp-less": "latest",
+    "gulp-typescript": "latest",
+    "less": "latest",
+    "less-plugin-autoprefix": "latest",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "preinstall": "npm i typescript less gulp -g"

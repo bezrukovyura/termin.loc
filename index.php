@@ -30,10 +30,9 @@ include_once "calendar.php";
   <script src="./Scripts/Services/TranslateService/TranslateService.js"></script>
 
   <script src="./Scripts/Components/FormInput/FormInput.js"></script>
-  <script src="./Scripts/Components/LoginAccess/LoginAccess.js"></script>
+  <script src="./Scripts/Components/LoginAccess/loginAccess.js"></script>
   <script src="./Scripts/Components/Calendar/Calendar.js"></script>
   <script src="./Scripts/Components/UsersEditor/UsersEditor.js"></script>
-  <script src="./Scripts/Components/Dayoff/Dayoff.js"></script>
   <script src="./Scripts/app.js"></script>
   <script>let dates = <? echo (Calendar::get() ? Calendar::get() : '[]'); ?>;</script>
   <script src="./Scripts/jquery.js"></script>

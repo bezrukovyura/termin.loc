@@ -1,7 +1,8 @@
 namespace Termin.Services {
 
     export enum Language {
-        ru = "ru",
+        //ru = "ru",
+        de = "de",
         en = "en"
     }
 
@@ -40,6 +41,7 @@ namespace Termin.Services {
         
         authorization: string;
         reserviert: string;
+        dayoff: string;
     }
 
     export class TranslateService {
@@ -55,13 +57,10 @@ namespace Termin.Services {
 
         public language: Language;
 
-        public l = "rgwergewr";
-
-        public listLanguages: string[] = [Language.en, Language.ru];
+        public listLanguages: string[] = [Language.en, Language.de];
 
         public setLanguage(lang: Language) {
             localStorage.setItem("Language", lang);
-            //apply todo проверить
         }
 
         get(): IDictionary {
@@ -70,43 +69,44 @@ namespace Termin.Services {
             if (this.language == Language.en || !this.getLanguage() || this.getLanguage() == Language.en)
                 return this.en;
 
-            if (this.language == Language.ru || this.getLanguage() == Language.ru)
-                return this.ru;
+            if (this.language == Language.de || this.getLanguage() == Language.de)
+                return this.de;
         }
 
-        private ru: IDictionary = {
-            title: "Система - Термин",
-            exit: "Выход",
-            calendar: "Календарь",
-            additional: "Добавление",
-            users: "Пользователи",
-            terminDate: 'Дата "Термина"',
-            secondName: "Фамилия",
-            firstName: "Имя",
-            bethday: "День рождения",
-            phone1: "Телефон 1",
-            phone2: "Телефон 2",
-            region: "Регион",
-            insurance: "Страховка",
-            zuweiser: "Рефералы",
-            comment: "Комментарий",
-            add: "Добавить",
-            save: "Сохранить",
-            cancel: "Отменить",
-            change: "Внести изменения",
-            del: "Удалить",
-            clear: "Очистить",
-            administrator: "Администратор",
-            user: "Пользователь",
-            wasSave: "Сохранено",
-            wasCreate: "Создано",
-            password: "Пароль",
-            login: "Вход",
-            tryAgain: "Попробуйте снова...",
-            welcome: "рады Вас видеть!",
-            authorization: "Авторизация",
-            reserviert: "Забронированно"
-        };
+        // private ru: IDictionary = {
+        //     title: "Система - Термин",
+        //     exit: "Выход",
+        //     calendar: "Календарь",
+        //     additional: "Добавление",
+        //     users: "Пользователи",
+        //     terminDate: 'Дата "Термина"',
+        //     secondName: "Фамилия",
+        //     firstName: "Имя",
+        //     bethday: "День рождения",
+        //     phone1: "Телефон 1",
+        //     phone2: "Телефон 2",
+        //     region: "Регион",
+        //     insurance: "Страховка",
+        //     zuweiser: "Рефералы",
+        //     comment: "Комментарий",
+        //     add: "Добавить",
+        //     save: "Сохранить",
+        //     cancel: "Отменить",
+        //     change: "Внести изменения",
+        //     del: "Удалить",
+        //     clear: "Очистить",
+        //     administrator: "Администратор",
+        //     user: "Пользователь",
+        //     wasSave: "Сохранено",
+        //     wasCreate: "Создано",
+        //     password: "Пароль",
+        //     login: "Вход",
+        //     tryAgain: "Попробуйте снова...",
+        //     welcome: "рады Вас видеть!",
+        //     authorization: "Авторизация",
+        //     reserviert: "Забронированно",
+        //     dayoff: "Выходные"
+        // };
 
         private en: IDictionary = {
             title: "System - Term",
@@ -139,7 +139,45 @@ namespace Termin.Services {
             tryAgain: "Try again...",
             welcome: "welcom!!!",
             authorization: "Authorization",
-            reserviert: "Reserviert"
+            reserviert: "Reserviert",
+            dayoff: "Holidays"
+
+        }
+
+        private de: IDictionary = {
+            title: "MRT - Portal | Terminkalender",
+            exit: "Abmelden",
+            calendar: "Kalender",
+            additional: "Eingabe",
+            users: "Users",
+            terminDate: 'Untersuchung am',
+            secondName: "Name",
+            firstName: "Vorname",
+            bethday: "Geburtsdatum",
+            phone1: "Handy",
+            phone2: "Telefon",
+            region: "Untersuchungsregion",
+            insurance: "Krankenversicherung",
+            zuweiser: "Überweisender Arzt",
+            comment: "Kommentar",
+            add: "Hinzufügen",
+            save: "Save",
+            cancel: "Leeren",
+            change: "Make changes",
+            del: "Delete",
+            clear: "Clear",
+            administrator: "Administrator",
+            user: "User",
+            wasSave: "Saved successfully",
+            wasCreate: "Created successfully",
+            password: "Passwort",
+            login: "Login",
+            tryAgain: "Try again...",
+            welcome: "welcom!!!",
+            authorization: "Anmelden",
+            reserviert: "Reserviert",
+            dayoff: "Holidays"
+
         }
     }
 
