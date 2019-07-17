@@ -180,15 +180,31 @@ namespace Termin.Components {
       for (let i = 0; i < this.allDays.length; i++) {
         let datepoint = new Date(new Date(date).getTime() + 86400000 * i);
         let stringDate = this.converter.date(datepoint);
-        this.storageService.get(stringDate).then(x => {
-          debugger
-          this.allDays[i] = this.render(stringDate, x);
-        });
+        if (!dates.includes(stringDate)) {
+          let dayOfWeek = datepoint.getUTCDay();
+            if ( dayOfWeek < 5 ) {
+              this.storageService.get(stringDate).then(x => {
+                debugger
+                this.allDays[i] = this.render(stringDate, x, "");
+              });
+            } else {
+              this.storageService.get(stringDate).then(x => {
+                debugger
+                this.allDays[i] = this.render(stringDate, x, "This is a weekend");
+              });
+            }  
+          } else {
+            this.storageService.get(stringDate).then(x => {
+              debugger
+              this.allDays[i] = this.render(stringDate, x, "This is a weekend");
+            });
+          }
+        };
       }
 
     }
 
-    private render(date: string, exist?: Unit[]): AllStrings {
+    private render(date: string, exist?: Unit[], warning: string): AllStrings {
 
       let units = this.createAllEmptyString(date);
       let prepareUnits: Unit[] = [];
@@ -204,7 +220,8 @@ namespace Termin.Components {
       return {
         first: prepareUnits.slice(0, prepareUnits.length / 2),
         second: prepareUnits.slice(prepareUnits.length / 2, prepareUnits.length),
-        date: date
+        date: date,
+        warning: warning
       }
 
     }
