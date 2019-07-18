@@ -35,15 +35,13 @@ $(document).ready(function(){
     fd.append('dates', $('#dates').val());
   
     $.ajax({
-      url: 'ajax.php',
+      url: '/php/ajax.php',
       data: fd,
       processData: false,
       contentType: false,
       type: 'POST',
       success: function (response) {            
-        if (response === '1') {
-          $('#place_order').click();
-        } else {
+        if (response !== 'ok') {
           alert(response);
         }
       }

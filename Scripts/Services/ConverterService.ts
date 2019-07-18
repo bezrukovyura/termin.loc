@@ -7,7 +7,10 @@ namespace Termin.Services {
         date(d: Date): string {
             if (!d || !d.getFullYear)
                 return <any>d;
-            return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            let day = (d.getDate() < 10) ? "0"+d.getDate() : d.getDate();
+            let m = d.getMonth() + 1;
+            let month = (m < 10) ? "0" + m : m;
+            return d.getFullYear() + "-" + month + "-" + day;
         }
 
         /** перевод числового времени в строковый */

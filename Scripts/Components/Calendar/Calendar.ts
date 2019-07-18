@@ -1,5 +1,6 @@
 ﻿declare var pdfMake: any;
 declare var html2canvas: any;
+declare var dates: any;
 
 namespace Termin.Components {
 
@@ -7,6 +8,7 @@ namespace Termin.Components {
     first: Unit[];
     second: Unit[];
     date?: string;
+    warning?: string;
   }
 
   class CalendarController implements ng.IController {
@@ -180,16 +182,31 @@ namespace Termin.Components {
       for (let i = 0; i < this.allDays.length; i++) {
         let datepoint = new Date(new Date(date).getTime() + 86400000 * i);
         let stringDate = this.converter.date(datepoint);
-        this.storageService.get(stringDate).then(x => {
-          debugger
-          this.allDays[i] = this.render(stringDate, x);
-        });
+        if (!dates.includes(stringDate)) {
+          let dayOfWeek = datepoint.getUTCDay();
+          if (dayOfWeek < 5) {
+            this.storageService.get(stringDate).then(x => {
+              debugger
+              this.allDays[i] = this.render(stringDate, "", x);
+            });
+          } else {
+            this.storageService.get(stringDate).then(x => {
+              debugger
+              this.allDays[i] = this.render(stringDate, "This is a weekend", x);
+            });
+          }
+        } else {
+          this.storageService.get(stringDate).then(x => {
+            debugger
+            this.allDays[i] = this.render(stringDate, "This is a nonworking day", x);
+          });
+        }
+
       }
 
     }
 
-    private render(date: string, exist?: Unit[]): AllStrings {
-
+    private render(date: string, warning: string, exist?: Unit[]): AllStrings {
       let units = this.createAllEmptyString(date);
       let prepareUnits: Unit[] = [];
       if (exist)
@@ -204,7 +221,8 @@ namespace Termin.Components {
       return {
         first: prepareUnits.slice(0, prepareUnits.length / 2),
         second: prepareUnits.slice(prepareUnits.length / 2, prepareUnits.length),
-        date: date
+        date: date,
+        warning: warning
       }
 
     }
