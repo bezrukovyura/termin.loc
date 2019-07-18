@@ -1,5 +1,5 @@
 <? 
-  require_once __DIR__."/php/rest.php";
+  require_once "rest.php";
   
   global $dates_array;
   $dates_array = Calendar::dates_array();
