@@ -201,12 +201,12 @@ namespace Termin.Components {
             this.allDays[i] = this.render(stringDate, "This is a nonworking day", x);
           });
         }
+
       }
 
     }
 
     private render(date: string, warning: string, exist?: Unit[]): AllStrings {
-
       let units = this.createAllEmptyString(date);
       let prepareUnits: Unit[] = [];
       if (exist)
