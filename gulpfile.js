@@ -16,7 +16,7 @@ gulp.task('typescript', function () {
 });
 
 gulp.task('copyJs', function () {
-  return gulp.src('./Scripts/app-concat-all.js')
+  return gulp.src('./Scripts/app-concat-all.toDeploy.js')
     .pipe(gulp.dest('./deploy/Scripts'));
 });
 
