@@ -1,8 +1,7 @@
-<?
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+<?php
 include_once "php/calendar.php";
 ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -14,30 +13,10 @@ include_once "php/calendar.php";
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" type="image/png" href="img/icon.png" />
   <title>Termin</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="./Scripts/vendors.css">
-
-  <script src="./Scripts/vendors.js"></script>
-
-  <script src="./Scripts/Components/Termin/Termin.js"></script>
-
-  <script src="./Scripts/Services/AccountService.js"></script>
-  <script src="./Scripts/Services/StorageService.js"></script>
-  <script src="./Scripts/Services/ConverterService.js"></script>
-  <script src="./Scripts/Services/TabService.js"></script>
-  <script src="./Scripts/Services/TranslateService/TranslateService.js"></script>
-
-  <script src="./Scripts/Components/FormInput/FormInput.js"></script>
-  <script src="./Scripts/Components/LoginAccess/loginAccess.js"></script>
-  <script src="./Scripts/Components/Calendar/Calendar.js"></script>
-  <script src="./Scripts/Components/UsersEditor/UsersEditor.js"></script>
-  <script src="./Scripts/app.js"></script>
+  <link rel="stylesheet" href="./Scripts/vendors.toDeploy.css">
   <script>let dates = <? echo (Calendar::get() ? Calendar::get() : '[]'); ?>;</script>
-  <script src="./Scripts/jquery.js"></script>
-  <script src="./Scripts/jquery-app.js"></script>
-
+  <script src="./Scripts/app-concat-all.toDeploy.js"></script>
 </head>
 
 <style>
@@ -178,8 +157,5 @@ body {
 
   </div>
 
-
-
 </body>
-
 </html>
