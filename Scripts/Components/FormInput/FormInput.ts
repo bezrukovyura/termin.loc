@@ -66,18 +66,18 @@
       this.storageService.isReserviert(this.unit).then(noUniq => {
 
         if (noUniq) {
-          this.toast('Данное время занято!', "toastBad");
+          this.toast(this.translateService.get().This_time_is_busy, "toastBad");
           return;
         }
 
         this.storageService.update(this.unit).then(x => {
           if (x) {
-            this.toast('Запись "' + this.unit.fam + '" обновлена!', "toastOk");
+            this.toast(this.translateService.get().Record + ' "' + this.unit.fam + '" ' + this.translateService.get().save, "toastOk");
             this.clear();
             this.backCalendar();
           }
           else
-            this.toast('Запись НЕ сохранена! Попробуйте снова.', "toastBad");
+            this.toast(this.translateService.get().The_recording_is_NOT_saved, "toastBad");
         });
 
       })
@@ -95,17 +95,17 @@
       this.storageService.isReserviert(this.unit).then(noUniq => {
 
         if (noUniq) {
-          this.toast('Данное время занято!', "toastBad");
+          this.toast(this.translateService.get().This_time_is_busy, "toastBad");
           return;
         }
 
         this.storageService.save(this.unit).then(x => {
           if (x) {
-            this.toast('Запись "' + this.unit.fam + '" сохранена!', "toastOk");
+            this.toast(this.translateService.get().Record + ' "' + this.unit.fam + '" ' + this.translateService.get().save, "toastOk");
             this.clear();
           }
           else 
-            this.toast('Запись НЕ сохранена! Попробуйте снова.', "toastBad");
+            this.toast(this.translateService.get().The_recording_is_NOT_saved, "toastBad");
         });
 
       });
@@ -115,13 +115,13 @@
       this.showProgressBar = true;
       this.storageService.delete(this.unit).then(x => {
         if (x) {
-          this.toast('Запись "' + this.unit.fam + '" удалена!', "toastOk");
+          this.toast(this.translateService.get().Record + ' "' + this.unit.fam + '" ' + this.translateService.get().del, "toastOk");
           this.clear();
           this.showProgressBar = false;
           this.backCalendar();
         }
         else {
-          this.toast('Запись НЕ удалена! Попробуйте снова.', "toastBad");
+          this.toast(this.translateService.get().Record_is_NOT_deleted, "toastBad");
           this.showProgressBar = false;
         }
 

@@ -31,17 +31,25 @@ namespace Termin.Services {
         clear: string;
         administrator: string;
         user: string;
-        
+
         wasSave: string;
         wasCreate: string;
         password: string;
         login: string;
         tryAgain: string;
         welcome: string;
-        
+
         authorization: string;
         reserviert: string;
         dayoff: string;
+        receptionTermin: string;
+
+
+
+        This_time_is_busy: string;
+        The_recording_is_NOT_saved: string;
+        Record_is_NOT_deleted: string;
+        Record: string;
     }
 
     export class TranslateService {
@@ -140,7 +148,15 @@ namespace Termin.Services {
             welcome: "welcom!!!",
             authorization: "Authorization",
             reserviert: "Reserviert",
-            dayoff: "Holidays"
+            dayoff: "Holidays",
+            receptionTermin: "reception termin",
+
+            This_time_is_busy: 'This time is busy!',
+            The_recording_is_NOT_saved: 'The recording is NOT saved! Try again.',
+            Record_is_NOT_deleted: 'Record is NOT deleted! Try again.',
+            Record: 'Record'
+
+
 
         }
 
@@ -176,7 +192,13 @@ namespace Termin.Services {
             welcome: "welcom!!!",
             authorization: "Anmelden",
             reserviert: "Reserviert",
-            dayoff: "Holidays"
+            dayoff: "Holidays",
+            receptionTermin: "reception termin",
+
+            This_time_is_busy: 'This time is busy!',
+            The_recording_is_NOT_saved: 'The recording is NOT saved! Try again.',
+            Record_is_NOT_deleted: 'Record is NOT deleted! Try again.',
+            Record: 'Record'
 
         }
     }

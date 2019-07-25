@@ -31,13 +31,13 @@
 <div class="wrapp">
     <div class="item" ng-repeat="item in ctrl.allUsers">
         <div>
-            <input type="text" ng-model="item.name">
-            <input type="text" ng-model="item.email">
+            <input type="text" ng-model="item.name" placeholder="Full name">
+            <input type="text" ng-model="item.email" placeholder="E-mail">
             <select ng-model="item.role">
                 <option value="1">{{l.get().administrator}}</option>
                 <option value="0">{{l.get().user}}</option>
             </select>
-            <input type="password" ng-model="item.password">
+            <input type="password" ng-model="item.password" placeholder="password">
             <md-button ng-click="ctrl.save(item)" class="md-raised colorGreen">{{l.get().save}}</md-button>
             <md-button ng-click="ctrl.remove(item)" class="md-raised colorRed">{{l.get().del}}</md-button>
         </div>

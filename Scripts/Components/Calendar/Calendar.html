@@ -233,7 +233,6 @@
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}} /</div>
                             <div ng-click="ctrl.onEdit(item)" class="info">
                                 {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments"> ✱</font>
-                                <!-- <md-tooltip>{{item.phone1 ? item.phone1 + " /" : ""}} {{item.phone2 ? item.phone2 + " /" : ""}} {{item.comments ? item.comments + " /" : ""}} {{item.zuweiser ? item.zuweiser: ""}}</md-tooltip> -->
                             </div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
@@ -247,7 +246,6 @@
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}} /</div>
                             <div ng-click="ctrl.onEdit(item)" class="info">
                                     {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments"> ✱</font>
-                                    <!-- <md-tooltip>{{item.phone1 ? item.phone1 + " /" : ""}} {{item.phone2 ? item.phone2 + " /" : ""}} {{item.comments ? item.comments + " /" : ""}} {{item.zuweiser ? item.zuweiser: ""}}</md-tooltip> -->
                                 </div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
@@ -271,9 +269,9 @@
         <md-dialog>
             <div class="close" ng-click="ctrl.finalCommitDialogClose()">X</div>
             <md-input-container>
-                <label>Прием термина</label>
+                <label>{{l.get().receptionTermin}}</label>
                 <input ng-model="ctrl.terminReception">
-                <md-button ng-click="ctrl.terminReceptionApply()" class="md-raised colorRed">Сохранить</md-button>
+                <md-button ng-click="ctrl.terminReceptionApply()" class="md-raised colorRed">{{l.get().save}}</md-button>
             </md-input-container>
         </md-dialog>
     </div>
