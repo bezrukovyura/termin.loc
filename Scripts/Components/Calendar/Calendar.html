@@ -232,7 +232,7 @@
                             <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}} /</div>
                             <div ng-click="ctrl.onEdit(item)" class="info">
-                                {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments"> ✱</font>
+                                {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments">*</font>
                             </div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>
@@ -245,7 +245,7 @@
                             <div ng-click="ctrl.onEdit(item)" class="time">{{item.hour}}:{{item.minute}}</div>
                             <div ng-click="ctrl.onEdit(item)" ng-if="item.visitDateNumber" class="infoId">{{item.visitDateNumber}} /</div>
                             <div ng-click="ctrl.onEdit(item)" class="info">
-                                    {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments"> ✱</font>
+                                    {{item.fam}} {{item.name}} / {{item.birthday.year ? item.birthday.year + "."+ item.birthday.mounth + "." + item.birthday.day + " /" : ""}} {{item.region ? item.region + " /" : ""}} {{item.insurance ? item.insurance: ""}} <font ng-if="item.comments">*</font>
                                 </div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.toChangeClass" ng-click="ctrl.addToChange(item)" class="bhp-btn">+</div>
                             <div ng-hide="item.visitDateNumber && !ctrl.roleAdmin" ng-if="item.id && ctrl.isFinalCommit" ng-click="ctrl.finalCommitDialog(item)" class="bhp-btn">✔</div>

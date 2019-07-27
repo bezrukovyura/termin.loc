@@ -88,7 +88,7 @@ namespace Termin.Components {
                   this.toChangeOk = false;
                 }
                 else
-                  alert(this.translateService.get().The_recording_is_NOT_saved)
+                  alert(this.translateService.get().The_recording_is_NOT_saved  )
               });
             else
               alert(this.translateService.get().The_recording_is_NOT_saved)
