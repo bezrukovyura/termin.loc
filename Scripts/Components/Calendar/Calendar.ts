@@ -13,14 +13,15 @@ namespace Termin.Components {
 
   class CalendarController implements ng.IController {
 
-    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "TabService", "$mdDialog"];
+    static $inject: string[] = ["$scope", "StorageService", "ConverterService", "TabService", "$mdDialog", 'TranslateService'];
 
     constructor(
       public $scope: ng.IScope,
       private storageService: Services.StorageService,
       private converter: Services.ConverterService,
       private tabs: Services.TabService,
-      private $mdDialog: any
+      private $mdDialog: any,
+      private translateService: Termin.Services.TranslateService
     ) { }
 
 
@@ -87,10 +88,10 @@ namespace Termin.Components {
                   this.toChangeOk = false;
                 }
                 else
-                  alert("Не удалось поменять местами")
+                  alert(this.translateService.get().The_recording_is_NOT_saved)
               });
             else
-              alert("Не удалось поменять местами")
+              alert(this.translateService.get().The_recording_is_NOT_saved)
           });
         }
         this.toChangeClass = false;
@@ -112,11 +113,8 @@ namespace Termin.Components {
       this.toChangeOk = this.toChange.length == 2;
     }
 
-    /** для отображения плюсов возле надписей */
     public toChangeClass: boolean = false;
-    /** для отображения плюсов возле надписей */
     public toChangeOk: boolean = false;
-    /** массив из двух записей, чтобы поменять время приема */
     public toChange: Unit[] = [];
 
 
@@ -162,7 +160,7 @@ namespace Termin.Components {
             this.finalCommitDialogClose();
           }
           else
-            alert("Не удалось сохранить");
+            alert(this.translateService.get().The_recording_is_NOT_saved);
         });
       });
 
@@ -186,19 +184,16 @@ namespace Termin.Components {
           let dayOfWeek = datepoint.getUTCDay();
           if (dayOfWeek < 5) {
             this.storageService.get(stringDate).then(x => {
-              debugger
               this.allDays[i] = this.render(stringDate, "", x);
             });
           } else {
             this.storageService.get(stringDate).then(x => {
-              debugger
-              this.allDays[i] = this.render(stringDate, "This is a weekend", x);
+              this.allDays[i] = this.render(stringDate, this.translateService.get().This_weekend, x);
             });
           }
         } else {
           this.storageService.get(stringDate).then(x => {
-            debugger
-            this.allDays[i] = this.render(stringDate, "This is a nonworking day", x);
+            this.allDays[i] = this.render(stringDate, this.translateService.get().This_nonworking_day, x);
           });
         }
 

@@ -44,12 +44,13 @@ namespace Termin.Services {
         dayoff: string;
         receptionTermin: string;
 
-
-
         This_time_is_busy: string;
         The_recording_is_NOT_saved: string;
         Record_is_NOT_deleted: string;
         Record: string;
+
+        This_weekend: string;
+        This_nonworking_day: string;
     }
 
     export class TranslateService {
@@ -154,10 +155,10 @@ namespace Termin.Services {
             This_time_is_busy: 'This time is busy!',
             The_recording_is_NOT_saved: 'The recording is NOT saved! Try again.',
             Record_is_NOT_deleted: 'Record is NOT deleted! Try again.',
-            Record: 'Record'
+            Record: 'Record',
 
-
-
+            This_weekend: 'This is a weekend',
+            This_nonworking_day: 'This is a nonworking day'
         }
 
         private de: IDictionary = {
@@ -198,7 +199,10 @@ namespace Termin.Services {
             This_time_is_busy: 'This time is busy!',
             The_recording_is_NOT_saved: 'The recording is NOT saved! Try again.',
             Record_is_NOT_deleted: 'Record is NOT deleted! Try again.',
-            Record: 'Record'
+            Record: 'Record',
+
+            This_weekend: 'This is a weekend',
+            This_nonworking_day: 'This is a nonworking day'
 
         }
     }
