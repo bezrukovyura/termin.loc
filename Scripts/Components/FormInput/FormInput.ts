@@ -90,7 +90,7 @@
 
     public save() {
       this.unit.date = this.ConverterService.date(<any>this.unit.date ? <any>this.unit.date : new Date());
-      this.unit.fam = !this.unit.name && !this.unit.fam ? this.translateService.get().reserviert : this.unit.name;
+      this.unit.fam = !this.unit.name && !this.unit.fam ? this.translateService.get().reserviert : this.unit.fam;
 
       this.storageService.isReserviert(this.unit).then(noUniq => {
 
