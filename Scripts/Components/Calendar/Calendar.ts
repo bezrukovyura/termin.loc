@@ -26,6 +26,7 @@ namespace Termin.Components {
 
 
     $onInit?(): void {
+      this.$scope.l = this.translateService;
 
       this.roleAdmin = this.role == 1 ? true : false;
 
@@ -325,8 +326,11 @@ namespace Termin.Components {
 
     setVisitDateNumber(): ng.IPromise<string> {
       return this.storageService.getTermsLastChecked().then(x => {
-        let arr = x.visitDateNumber.split("/");
-        let currentId = +arr[0];
+        let currentId = 0;
+        if(x && x.visitDateNumber){
+          const arr = x.visitDateNumber.split("/");
+          currentId = +arr[0] || 0;
+        }
         let year = "" + new Date().getFullYear();
         let currentYear = year[2] + year[3];
         return (currentId + 1) + "/" + currentYear;
